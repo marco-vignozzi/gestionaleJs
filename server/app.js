@@ -1,9 +1,15 @@
-let rows = require("./data/Rows");
 const express = require("express");
+const Datastore = require("nedb");
 
 const bodyParser = require("body-parser");
 
 app = express();
+// Security
+app.use(express.json({ limit: "1mb" }));
+app.listen(3000, () => console.log("Listening..."));
+
+const database = new Datastore({ filename: "database.db" });
+database.loadDatabase();
 
 // MiddleWare per gestire richieste JSON
 app.use(bodyParser.json());
@@ -25,7 +31,13 @@ app.get("/", (req, res) => {
 	res.send("Hello! Welcome to my Server :)");
 });
 app.get("/api/rows", (req, res) => {
-	res.json(rows);
+	database.find({}, (err, rows) => {
+		if (err) {
+			res.end();
+			return;
+		}
+		res.json(rows);
+	});
 });
 
 // Gestione della richiesta OPTIONS fatta da CORS
@@ -33,10 +45,16 @@ app.options("/api", (req, res) => {
 	res.sendStatus(200); // Invia una risposta OK
 });
 app.post("/api", (req, res) => {
-	const body = req.body;
-	let row = rows.find((el) => el.code === body.rowCode);
-	row.name += "!";
-	return res.json({ body: rows });
+	const data = req.body;
+	const now = Date.now();
+	database.update(
+		{ code: data.rowCode },
+		{ $set: { name: data.newValue } },
+		{},
+		() => {}
+	);
+	return res.json({
+		status: "success",
+		timestamp: now,
+	});
 });
-
-app.listen(3000, () => console.log("Listening..."));

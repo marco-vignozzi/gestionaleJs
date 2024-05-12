@@ -65,7 +65,7 @@ export default function StickyHeadTable() {
 		setPage(0);
 	};
 
-	const handleRowClick = (event, rowCode) => {
+	const handleRowClick = (event, rowCode, rowName) => {
 		const options = {
 			method: "POST",
 			headers: {
@@ -73,6 +73,7 @@ export default function StickyHeadTable() {
 			},
 			body: JSON.stringify({
 				rowCode: rowCode,
+				newValue: rowName + "!",
 				message: "Change this row pls: " + rowCode,
 			}),
 		};
@@ -84,7 +85,7 @@ export default function StickyHeadTable() {
 				return res.json();
 			})
 			.then((data) => {
-				setRows(data.body);
+				fetchData();
 			});
 	};
 
@@ -117,7 +118,11 @@ export default function StickyHeadTable() {
 										<TableRow
 											hover
 											onClick={(event) =>
-												handleRowClick(event, row.code)
+												handleRowClick(
+													event,
+													row.code,
+													row.name
+												)
 											}
 											role="checkbox"
 											tabIndex={-1}
