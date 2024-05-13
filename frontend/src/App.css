@@ -1,0 +1,7 @@
+.main-table {
+    display: flex;
+    flex: 1 1 100%;
+    padding: 50px;
+    width: auto;
+    height: auto;
+}

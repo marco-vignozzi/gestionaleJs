@@ -1,10 +1,14 @@
-import Table from './components/table/Table'
-
+import ImmobiliSearch from './routes/immobili/ImmobiliSearch'
+import './App.css'
 function App() {
   return (
     // Commento a caso
     <div className="App">
-      <Table />
+
+      <div className='main-table'
+      >
+      <ImmobiliSearch/>
+      </div>
     </div>
   );
 }

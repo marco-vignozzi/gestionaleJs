@@ -7,54 +7,21 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import '../../styles/table.css'
 
-const columns = [
-	{ id: "name", label: "Name", minWidth: 170 },
-	{ id: "code", label: "ISO\u00a0Code", minWidth: 100 },
-	{
-		id: "population",
-		label: "Population",
-		minWidth: 170,
-		align: "right",
-		format: (value) => value.toLocaleString("en-US"),
-	},
-	{
-		id: "size",
-		label: "Size\u00a0(km\u00b2)",
-		minWidth: 170,
-		align: "right",
-		format: (value) => value.toLocaleString("en-US"),
-	},
-	{
-		id: "density",
-		label: "Density",
-		minWidth: 170,
-		align: "right",
-		format: (value) => value.toFixed(2),
-	},
-];
-
-export default function StickyHeadTable() {
+export default function StickyHeadTable(props) {
+	const {fetchData, columns} = props;
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(25);
 	const [rows, setRows] = React.useState([]);
 
 	React.useEffect(() => {
-		fetchData();
+		setData();
 	}, []);
 
-	// Aggiungere qui le fetch iniziali
-	const fetchData = () => {
-		fetch("http://localhost:3000/api/rows")
-			.then((res) => {
-				if (!res.ok) {
-					throw new Error("Network response NOT okk!");
-				}
-				return res.json();
-			})
-			.then((data) => setRows(data))
-			.catch((err) => console.log("ERRORE! ERRORE!! ERRORE!!!", err));
-	};
+	const setData = () => {
+		fetchData().then((data) => setRows(data)).catch((err) => console.log("ERRORE! ERRORE!! ERRORE!!!", err));;
+	}
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -85,21 +52,22 @@ export default function StickyHeadTable() {
 				return res.json();
 			})
 			.then((data) => {
-				fetchData();
+				console.log(data);
+				setData();
 			});
 	};
 
 	return (
-		<Paper sx={{ width: "100%", overflow: "hidden" }}>
-			<TableContainer /*  sx={{ : 700 }} */>
+		<Paper sx={{ width: "100%", overflow: "auto",maxWidth : 1000 }}>
+			<TableContainer sx={{maxHeight : 600, maxWidth: 1000 }}>
 				<Table stickyHeader aria-label="sticky table">
 					<TableHead>
 						<TableRow>
 							{columns.map((column) => (
 								<TableCell
-									key={column.id}
-									align={column.align}
-									style={{ minWidth: column.minWidth }}
+								key={column.id}
+								align={column.align}
+								style={{ minWidth: column.minWidth }}
 								>
 									{column.label}
 								</TableCell>
@@ -147,8 +115,8 @@ export default function StickyHeadTable() {
 											})}
 										</TableRow>
 									);
-								})}
-						{"Nessun risultato"}
+								}) || 
+						"Nessun risultato"}
 					</TableBody>
 				</Table>
 			</TableContainer>
