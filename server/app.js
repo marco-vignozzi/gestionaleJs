@@ -8,8 +8,10 @@ app = express();
 app.use(express.json({ limit: "1mb" }));
 app.listen(3000, () => console.log("Listening..."));
 
-const database = new Datastore({ filename: "database.db" });
-database.loadDatabase();
+const database =  new Datastore({ filename: "data/database.db" });
+database.loadDatabase((err) => {
+	!err && console.log('Hello db no errs') ;
+});
 
 // MiddleWare per gestire richieste JSON
 app.use(bodyParser.json());
