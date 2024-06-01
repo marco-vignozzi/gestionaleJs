@@ -1,20 +1,25 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ImmobiliSearch from './components/immobili/ImmobiliSearch';
+import InquiliniSearch from './components/inquilini/InquiliniSearch';
 import Navbar from './components/navbar/Navbar';
 import './styles/App.css';
+
+const queryClient = new QueryClient();
 
 const navbarOptions = [
     {
         label: 'Immobili',
-        onClick: (e) => console.log('Clicca immobili!')
+        path: '/'
     },
     {
         label: 'Inquilini',
-        onClick: (e) => console.log('Clicca inquilini!')
+        onClick: () => console.log('clicked Inquilini'),
+        path: '/inquilini'
     },
     {
         label: 'Contratti',
-        onClick: (e) => console.log('Clicca contratti!')
+        path: '/contratti'
     }
 ];
 
@@ -22,16 +27,26 @@ function App() {
     return (
         // Commento a caso
         <div className="viewport-div">
-            <Navbar options={navbarOptions} />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<ImmobiliSearch />}>
+            <QueryClientProvider client={queryClient}>
+                <BrowserRouter>
+                    <Navbar options={navbarOptions} />
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={<div>{'Welcome to IKEA 🪑'}</div>}
+                        />
+                        <Route
+                            path="/contratti"
+                            element={<div>Hello World! 🧾</div>}
+                        />
+                        <Route
+                            path="/inquilini"
+                            element={<InquiliniSearch />}
+                        />
                         <Route />
-                        <Route />
-                        <Route />
-                    </Route>
-                </Routes>
-            </BrowserRouter>
+                    </Routes>
+                </BrowserRouter>
+            </QueryClientProvider>
         </div>
     );
 }

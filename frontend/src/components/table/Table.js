@@ -8,52 +8,91 @@ function TableHeader(props) {
             key="header"
             className={`table-header table-row${sticky ? ' sticky' : ''}`}
         >
-            {rowData.map((el) => (
-                <th className="table-cell" key={el.id}>
-                    {el.label}
-                </th>
-            ))}
+            <tr>
+                {rowData.map((el) => (
+                    <td className="table-cell" key={el.id}>
+                        {el.label}
+                    </td>
+                ))}
+            </tr>
         </thead>
     );
 }
 
 function TableRow(props) {
-    const { rowData, columns } = props;
+    const { rowData, columns, mapped = true, id } = props;
 
-    return (
-        <tr className="table-row">
-            {rowData &&
-                Object.values(columns).map((el) => (
+    const tdWidth =
+        (!mapped &&
+            Array.isArray(rowData) &&
+            Array.isArray(columns) &&
+            Math.floor(columns.length / rowData.length)) ||
+        1;
+
+    return rowData ? (
+        mapped && columns ? (
+            <tr className="table-row" key={`row-${id}`}>
+                {Object.values(columns).map((el) => (
                     <td className="table-cell" key={rowData[el.id]}>
                         {rowData[el.id]}
                     </td>
                 ))}
-        </tr>
-    );
+            </tr>
+        ) : (
+            Array.isArray(rowData) && (
+                <tr className="table-row" key={`row-${id}`}>
+                    {rowData.map((el, i) => (
+                        <td
+                            key={`cell-${id}-${i}`}
+                            colSpan={tdWidth}
+                            className={`table-cell ${
+                                el.className ? el.className : ''
+                            }`}
+                        >
+                            {el.value}
+                        </td>
+                    ))}
+                </tr>
+            )
+        )
+    ) : null;
 }
 
-function TableCell() {
-    return <th>Hello</th>;
-}
+// function TableCell() {
+//     return <th>Hello</th>;
+// }
 
 export default function Table(props) {
-    const { columns, rows } = props;
+    const { columns, rows, mapped = true } = props;
 
     return (
         <div className="table-container">
             <table>
                 <TableHeader rowData={columns} sticky={true} />
-                {rows.length > 0 ? (
-                    rows.map((row, i) => (
-                        <TableRow
-                            key={`row-${i}`}
-                            rowData={row}
+                <tbody>
+                    {
+                        rows.length > 0 ? (
+                        rows.map((row, i) => (
+                            <TableRow
+                                key={'row-' + i}
+                                id={i}
+                                rowData={row}
+                                columns={columns}
+                                mapped={mapped}
+                            />
+                        ))
+                    ) : <TableRow
+                            key="row-no-results"
+                            id="no-results"
+                            mapped={false} 
                             columns={columns}
+                            rowData={[
+                                { value: 'No results :/' },
+                                { value: 'No Sex :/' }
+                            ]}
                         />
-                    ))
-                ) : (
-                    <tr key="no-results">No results :\</tr>
-                )}
+                    }
+                </tbody>
             </table>
         </div>
     );

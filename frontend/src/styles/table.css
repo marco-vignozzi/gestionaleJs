@@ -11,6 +11,7 @@ table {
 }
 
 .table-container {
+    font-family: 'Gill Sans', sans-serif;
     display: flex;
     flex-direction: column;
     flex: 1 1 100%;
