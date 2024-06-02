@@ -1,0 +1,26 @@
+.pagamenti-title {
+    margin-top: 10px;
+    border: 2px solid black;
+}
+
+.inquilini-pagamenti {
+    display: inline-flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    width: 100%;
+    border: 2px solid blue;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.inquilino-pagamenti {
+    width: 60px;
+    height: 60px;
+    padding: 4px;
+    margin: 10px;
+    border: 2px solid green;
+}
+.debito {
+    border: 2px solid red;
+}

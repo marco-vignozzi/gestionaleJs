@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Table from '../table/Table';
 import useInquilini from './use-inquilini';
+import InquiliniPagamenti from './InquiliniPagamenti';
 import '../../styles/App.css';
 
 const columns = [
@@ -43,7 +44,13 @@ export default function ImmobiliSearch(props) {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        data && setRows(data);
+        if (data && Array.isArray(data)) {
+            setRows(
+                data.map((el, i) => {
+                    return { ...el, hasDebit: i % 2 === 0 };
+                })
+            );
+        }
     }, [isPending, data]);
 
     return (
@@ -51,6 +58,7 @@ export default function ImmobiliSearch(props) {
             {/* <SearchBanner/> */}
             <div className="search-banner">SEARCHBANNER</div>
             <Table columns={columns} rows={rows} />
+            <InquiliniPagamenti data={rows} />
         </div>
     );
 }
