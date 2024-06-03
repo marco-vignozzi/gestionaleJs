@@ -1,14 +1,12 @@
+import { memo } from 'react';
 import '../../styles/table.css';
 
 function TableHeader(props) {
     const { rowData, sticky } = props;
 
     return (
-        <thead
-            key="header"
-            className={`table-header table-row${sticky ? ' sticky' : ''}`}
-        >
-            <tr>
+        <thead className={`table-header table-row${sticky ? ' sticky' : ''}`}>
+            <tr key="header">
                 {rowData.map((el) => (
                     <td className="table-cell" key={el.id}>
                         {el.label}
@@ -19,7 +17,7 @@ function TableHeader(props) {
     );
 }
 
-function TableRow(props) {
+function _TableRow(props) {
     const { rowData, columns, mapped = true, id } = props;
 
     const tdWidth =
@@ -31,36 +29,51 @@ function TableRow(props) {
 
     return rowData ? (
         mapped && columns ? (
-            <tr className="table-row" key={`row-${id}`}>
-                {Object.values(columns).map((el) => (
-                    <td className="table-cell" key={rowData[el.id]}>
-                        {rowData[el.id]}
-                    </td>
-                ))}
+            <tr
+                onClick={rowData.onClick}
+                className={`table-row ${
+                    rowData.className ? rowData.className : ''
+                }`}
+                key={`row-${id}`}
+            >
+                {Object.values(columns).map((column, i) => {
+                    return (
+                        <TableCell
+                            value={rowData[column.id]}
+                            key={`table-cell-${id}-${i}`}
+                            id={rowData.id}
+                            i={i}
+                            tdWidth={tdWidth}
+                        />
+                    );
+                })}
             </tr>
         ) : (
             Array.isArray(rowData) && (
                 <tr className="table-row" key={`row-${id}`}>
                     {rowData.map((el, i) => (
-                        <td
-                            key={`cell-${id}-${i}`}
-                            colSpan={tdWidth}
-                            className={`table-cell ${
-                                el.className ? el.className : ''
-                            }`}
-                        >
-                            {el.value}
-                        </td>
+                        <TableCell {...el} id={id} i={i} tdWidth={tdWidth} />
                     ))}
                 </tr>
             )
         )
     ) : null;
 }
+const TableRow = memo(_TableRow, (prev, next) => {
+    return JSON.stringify(prev.rowData) === JSON.stringify(next.rowData);
+});
 
-// function TableCell() {
-//     return <th>Hello</th>;
-// }
+// TODO: implementare sistema di onClick e className
+function _TableCell(props) {
+    const { id, i, value, tdWidth } = props;
+    return (
+        <td key={`cell-${id}-${i}`} colSpan={tdWidth} className={`table-cell`}>
+            {value}
+        </td>
+    );
+}
+
+const TableCell = memo(_TableCell, (prev, next) => prev.value === next.value);
 
 export default function Table(props) {
     const { columns, rows, mapped = true } = props;
@@ -70,11 +83,11 @@ export default function Table(props) {
             <table>
                 <TableHeader rowData={columns} sticky={true} />
                 <tbody>
-                    {rows.length > 0 ? (
+                    {columns && rows.length > 0 ? (
                         rows.map((row, i) => (
                             <TableRow
                                 key={'row-' + i}
-                                id={i}
+                                id={row._id}
                                 rowData={row}
                                 columns={columns}
                                 mapped={mapped}
@@ -82,7 +95,7 @@ export default function Table(props) {
                         ))
                     ) : (
                         <TableRow
-                            key="row-no-results"
+                            key="table-row-no-results"
                             id="no-results"
                             mapped={false}
                             columns={columns}

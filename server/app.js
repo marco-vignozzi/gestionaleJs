@@ -44,7 +44,7 @@ app.options('/api', (req, res) => {
 });
 
 // INQUILINI
-// GET
+// SELECT ALL
 app.get('/api/inquilini', (req, res) => {
     database.find({ type: 'inquilino' }, (err, rows) => {
         if (err) {
@@ -54,7 +54,7 @@ app.get('/api/inquilini', (req, res) => {
         res.json(rows);
     });
 });
-// POST
+// UPDATE
 // TODO: capire per modificare come fare: usare selettore tipo? nel body della request aggiungere tipo {key: "key", value: "value"}
 // Questo per ora è solo l'update, voglio sia update che insert con questo? per farlo usare options = {upsert: true}
 app.post('/api/inquilini', (req, res) => {
@@ -66,7 +66,6 @@ app.post('/api/inquilini', (req, res) => {
             message: 'Validation error'
         });
     }
-
     // TODO: capire perchè non funziona
     return database.findOne(
         { type: 'inquilino', _id: data._id },
@@ -79,8 +78,8 @@ app.post('/api/inquilini', (req, res) => {
             }
             database.update(
                 { _id: doc._id },
-                data,
-                { returnUpdatedDocs: true },
+                { ...data },
+                { returnUpdatedDocs: true, upsert: false },
                 (err, _, affectedDocuments) => {
                     if (err) {
                         return res.json({

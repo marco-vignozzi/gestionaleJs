@@ -38,34 +38,44 @@ const columns = [
     }
 ];
 
-export default function ImmobiliSearch(props) {
-    const { data, update, isPending, ...rest } = useInquilini();
+export default function InquiliniSearch(props) {
+    const { data, update, query, ...rest } = useInquilini();
 
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        if (data && Array.isArray(data)) {
-            setRows(
-                data.map((el, i) => {
-                    return {
+        if (
+            !data ||
+            !Array.isArray(data) ||
+            query.isPending ||
+            update.isPending
+        )
+            return;
+        const newData = data.map((el, i) => {
+            return {
+                ...el,
+                onClick: () => {
+                    console.log('Mutating: ', el._id);
+                    const data = {
                         ...el,
-                        value: (
-                            <span onClick={() => {}} className="custom-cell">
-                                {el.value}
-                            </span>
-                        )
+                        name: el.name?.includes('ARMINIO')
+                            ? 'FERRANDO 💪🏻'
+                            : 'ARMINIO 🧠'
                     };
-                })
-            );
-        }
-    }, [isPending, data]);
+                    update.mutate(data);
+                },
+                className: 'inquilini-row'
+            };
+        });
+        setRows(newData);
+    }, [query.isPending, data, update.isPending]);
 
     return (
         <div className="search-div">
             {/* <SearchBanner/> */}
             <div className="search-banner">SEARCHBANNER</div>
             <Table columns={columns} rows={rows} />
-            <InquiliniPagamenti data={rows} />
+            <InquiliniPagamenti data={data} />
         </div>
     );
 }

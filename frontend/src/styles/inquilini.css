@@ -11,17 +11,46 @@
     border: 2px solid blue;
     margin-top: 10px;
     margin-bottom: 10px;
-    padding: 10px;
+    padding: 5px;
 }
 
 .inquilino-pagamenti {
     width: 70px;
     height: 70px;
-    padding: 4px;
+    padding: 2px;
     margin: 10px;
+    background-color: whitesmoke;
     border: 2px solid green;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: normal;
+    font-family: 'Gill Sans', sans-serif;
+    white-space: normal; /* Impedisce al testo di andare a capo */
+    /*overflow: hidden; /* Nasconde il testo che esce dai bordi */
+    text-overflow: clip; /* Aggiunge i tre puntini di sospensione se il testo è troppo lungo */
+}
+.inquilino-pagamenti:hover {
+    background-color: lightgreen;
 }
 
 .debito {
     border: 2px solid red;
+}
+.debito:hover {
+    background-color: lightcoral;
+}
+
+.inquilini-row {
+    cursor: pointer !important;
+    height: 45px;
+    transition: all 0.5s ease-out;
+    /* PER EVITARE IL RIDIMENSIONAMENTO DOVUTO ALLA VARIAZIONE DELLA LUNGHEZZA DEL TESTO
+    /* width: 150px; /* Imposta la larghezza desiderata */
+    /*white-space: nowrap; /* Impedisce al testo di andare a capo */
+    /*overflow: hidden; /* Nasconde il testo che esce dai bordi */
+    /*text-overflow: ellipsis; /* Aggiunge i tre puntini di sospensione se il testo è troppo lungo */
+}
+
+.inquilini-row:hover {
+    background-color: sandybrown;
 }
