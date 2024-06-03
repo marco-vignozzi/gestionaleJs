@@ -47,7 +47,14 @@ export default function ImmobiliSearch(props) {
         if (data && Array.isArray(data)) {
             setRows(
                 data.map((el, i) => {
-                    return { ...el };
+                    return {
+                        ...el,
+                        value: (
+                            <span onClick={() => {}} className="custom-cell">
+                                {el.value}
+                            </span>
+                        )
+                    };
                 })
             );
         }

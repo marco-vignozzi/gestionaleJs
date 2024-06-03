@@ -15,12 +15,13 @@
 }
 
 .inquilino-pagamenti {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     padding: 4px;
     margin: 10px;
     border: 2px solid green;
 }
+
 .debito {
     border: 2px solid red;
 }

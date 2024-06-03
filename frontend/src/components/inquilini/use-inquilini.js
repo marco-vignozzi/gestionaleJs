@@ -37,7 +37,7 @@ export default function useInquilini(options) {
     //  isLoading or status === 'loading' - The mutation is currently running
     //  isError or status === 'error' - The mutation encountered an error
     //  isSuccess or status === 'success' - The mutation was successful and mutation data is availabl
-    const update = useMutation({ mutationFn: updateInquilini });
+    const update = useMutation({ mutationFn: (data) => updateInquilini(data) });
 
     return { ...query, update, data };
 }

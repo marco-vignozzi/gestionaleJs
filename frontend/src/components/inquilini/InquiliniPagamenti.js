@@ -18,7 +18,7 @@ export default function InquiliniPagamenti(props) {
                                   }
                               >
                                   {`${el.name} ${el.secondName} ${
-                                      el.hasDebit ? '+debit' : '-'
+                                      el.hasDebit ? '❌' : '✅'
                                   }`}
                               </div>
                           );
