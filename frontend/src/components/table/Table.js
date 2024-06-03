@@ -70,8 +70,7 @@ export default function Table(props) {
             <table>
                 <TableHeader rowData={columns} sticky={true} />
                 <tbody>
-                    {
-                        rows.length > 0 ? (
+                    {rows.length > 0 ? (
                         rows.map((row, i) => (
                             <TableRow
                                 key={'row-' + i}
@@ -81,17 +80,15 @@ export default function Table(props) {
                                 mapped={mapped}
                             />
                         ))
-                    ) : <TableRow
+                    ) : (
+                        <TableRow
                             key="row-no-results"
                             id="no-results"
-                            mapped={false} 
+                            mapped={false}
                             columns={columns}
-                            rowData={[
-                                { value: 'No results :/' },
-                                { value: 'No Sex :/' }
-                            ]}
+                            rowData={[{ value: 'No results :/' }]}
                         />
-                    }
+                    )}
                 </tbody>
             </table>
         </div>

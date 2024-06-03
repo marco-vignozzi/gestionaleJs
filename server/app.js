@@ -4,10 +4,11 @@ const Datastore = require('nedb');
 const bodyParser = require('body-parser');
 
 app = express();
-// Security
+// SECURITY
 app.use(express.json({ limit: '1mb' }));
 app.listen(3000, () => console.log('Listening...'));
 
+// LOADING DB
 const database = new Datastore({ filename: 'data/database.db' });
 database.loadDatabase((err) => {
     !err && console.log('Hello db no errs');
@@ -32,8 +33,16 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => {
     res.send('Hello! Welcome to my Server :)');
 });
-app.get('/api/rows', (req, res) => {
-    database.find({}, (err, rows) => {
+
+// Gestione della richiesta OPTIONS fatta da CORS
+app.options('/api', (req, res) => {
+    res.sendStatus(200); // Invia una risposta OK
+});
+
+// INQUILINI
+// GET
+app.get('/api/inquilini', (req, res) => {
+    database.find({ type: 'inquilino' }, (err, rows) => {
         if (err) {
             res.end();
             return;
@@ -41,20 +50,22 @@ app.get('/api/rows', (req, res) => {
         res.json(rows);
     });
 });
-
-// Gestione della richiesta OPTIONS fatta da CORS
-app.options('/api', (req, res) => {
-    res.sendStatus(200); // Invia una risposta OK
-});
-app.post('/api', (req, res) => {
-    const data = req.body;
+// POST
+// TODO: capire per modificare come fare: usare selettore tipo? nel body della request aggiungere tipo {key: "key", value: "value"}
+app.post('/api/inquilini', (req, res) => {
+    const { data, key, newValue } = req.body?.data;
+    if (!data) return res.json({ status: 'error' });
     const now = Date.now();
-    database.update(
-        { code: data.rowCode },
-        { $set: { name: data.newValue } },
-        {},
-        () => {}
-    );
+    if (key && newValue) {
+        database.update({ _id: data._id }, { $set: { [`${key}`]: newValue } });
+    } else {
+        database.update(
+            { code: data.name },
+            { $set: { name: data.name + '*' } },
+            {},
+            () => {}
+        );
+    }
     return res.json({
         status: 'success',
         timestamp: now

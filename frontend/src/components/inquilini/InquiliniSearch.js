@@ -39,7 +39,7 @@ const columns = [
 ];
 
 export default function ImmobiliSearch(props) {
-    const { data, isPending, ...rest } = useInquilini();
+    const { data, update, isPending, ...rest } = useInquilini();
 
     const [rows, setRows] = useState([]);
 
@@ -47,7 +47,7 @@ export default function ImmobiliSearch(props) {
         if (data && Array.isArray(data)) {
             setRows(
                 data.map((el, i) => {
-                    return { ...el, hasDebit: i % 2 === 0 };
+                    return { ...el };
                 })
             );
         }

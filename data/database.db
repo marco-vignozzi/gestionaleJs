@@ -1,19 +1,19 @@
-{"name":"Mario","secondName":"Neri","country":"France","city":"New York","address":"High St, 523","phone":"3331234567","email":"example5@icloud.com","_id":"0","hasDebit":true}
-{"name":"Carla","secondName":"Bianchi","country":"USA","city":"Berlin","address":"Broadway, 789","phone":"3209876543","email":"example4@outlook.com","_id":"1","hasDebit":false}
-{"name":"Anna","secondName":"Rossi","country":"Spain","city":"Madrid","address":"Main St, 143","phone":"3456789012","email":"example3@gmail.com","_id":"10","hasDebit":true}
-{"name":"Luigi","secondName":"Verdi","country":"Italy","city":"Paris","address":"Street of Rock, 255","phone":"3901234567","email":"example1@hotmail.com","_id":"11","hasDebit":false}
-{"name":"Gianni","secondName":"Rossi","country":"France","city":"Rome","address":"Boulevard, 812","phone":"3456789012","email":"example3@gmail.com","_id":"12","hasDebit":true}
-{"name":"Mario","secondName":"Neri","country":"Spain","city":"Berlin","address":"High St, 609","phone":"3901234567","email":"example5@icloud.com","_id":"13","hasDebit":false}
-{"name":"Luigi","secondName":"Bianchi","country":"Italy","city":"Paris","address":"Street of Rock, 374","phone":"3401920392","email":"example4@outlook.com","_id":"14","hasDebit":true}
-{"name":"Anna","secondName":"Verdi","country":"USA","city":"Madrid","address":"Broadway, 428","phone":"3331234567","email":"example2@yahoo.com","_id":"15","hasDebit":false}
-{"name":"Carla","secondName":"Rossi","country":"Germany","city":"New York","address":"Main St, 255","phone":"3456789012","email":"example1@hotmail.com","_id":"16","hasDebit":true}
-{"name":"Gianni","secondName":"Neri","country":"France","city":"Rome","address":"Boulevard, 743","phone":"3209876543","email":"example3@gmail.com","_id":"17","hasDebit":false}
-{"name":"Mario","secondName":"Bianchi","country":"Spain","city":"Berlin","address":"High St, 811","phone":"3901234567","email":"example5@icloud.com","_id":"18","hasDebit":true}
-{"name":"Luigi","secondName":"Verdi","country":"Italy","city":"Paris","address":"Street of Rock, 294","phone":"3401920392","email":"example4@outlook.com","_id":"19","hasDebit":false}
-{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"2"}
-{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"20"}
-{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"21"}
-{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"22"}
-{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"3"}
-{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"4"}
-{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"5"}
+{"name":"Mario","secondName":"Neri","country":"France","city":"New York","address":"High St, 523","phone":"3331234567","email":"example5@icloud.com","_id":"0","hasDebit":true,"type":"inquilino"}
+{"name":"Carla","secondName":"Bianchi","country":"USA","city":"Berlin","address":"Broadway, 789","phone":"3209876543","email":"example4@outlook.com","_id":"1","hasDebit":false,"type":"inquilino"}
+{"name":"Anna","secondName":"Rossi","country":"Spain","city":"Madrid","address":"Main St, 143","phone":"3456789012","email":"example3@gmail.com","_id":"10","hasDebit":true,"type":"inquilino"}
+{"name":"Luigi","secondName":"Verdi","country":"Italy","city":"Paris","address":"Street of Rock, 255","phone":"3901234567","email":"example1@hotmail.com","_id":"11","hasDebit":false,"type":"inquilino"}
+{"name":"Gianni","secondName":"Rossi","country":"France","city":"Rome","address":"Boulevard, 812","phone":"3456789012","email":"example3@gmail.com","_id":"12","hasDebit":true,"type":"inquilino"}
+{"name":"Mario","secondName":"Neri","country":"Spain","city":"Berlin","address":"High St, 609","phone":"3901234567","email":"example5@icloud.com","_id":"13","hasDebit":false,"type":"inquilino"}
+{"name":"Luigi","secondName":"Bianchi","country":"Italy","city":"Paris","address":"Street of Rock, 374","phone":"3401920392","email":"example4@outlook.com","_id":"14","hasDebit":true,"type":"inquilino"}
+{"name":"Anna","secondName":"Verdi","country":"USA","city":"Madrid","address":"Broadway, 428","phone":"3331234567","email":"example2@yahoo.com","_id":"15","hasDebit":false,"type":"inquilino"}
+{"name":"Carla","secondName":"Rossi","country":"Germany","city":"New York","address":"Main St, 255","phone":"3456789012","email":"example1@hotmail.com","_id":"16","hasDebit":true,"type":"inquilino"}
+{"name":"Gianni","secondName":"Neri","country":"France","city":"Rome","address":"Boulevard, 743","phone":"3209876543","email":"example3@gmail.com","_id":"17","hasDebit":false,"type":"inquilino"}
+{"name":"Mario","secondName":"Bianchi","country":"Spain","city":"Berlin","address":"High St, 811","phone":"3901234567","email":"example5@icloud.com","_id":"18","hasDebit":true,"type":"inquilino"}
+{"name":"Luigi","secondName":"Verdi","country":"Italy","city":"Paris","address":"Street of Rock, 294","phone":"3401920392","email":"example4@outlook.com","_id":"19","hasDebit":false,"type":"inquilino"}
+{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"2","type":"inquilino"}
+{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"20","type":"inquilino"}
+{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"21","type":"inquilino"}
+{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"22","type":"inquilino"}
+{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"3","type":"inquilino"}
+{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"4","type":"inquilino"}
+{"name":"Gianni","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"5","type":"inquilino"}
