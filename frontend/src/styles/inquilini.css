@@ -43,7 +43,7 @@
 .inquilini-row {
     cursor: pointer !important;
     height: 45px;
-    transition: all 0.5s ease-out;
+    transition: all 0.3s;
     /* PER EVITARE IL RIDIMENSIONAMENTO DOVUTO ALLA VARIAZIONE DELLA LUNGHEZZA DEL TESTO
     /* width: 150px; /* Imposta la larghezza desiderata */
     /*white-space: nowrap; /* Impedisce al testo di andare a capo */
@@ -53,4 +53,16 @@
 
 .inquilini-row:hover {
     background-color: sandybrown;
+}
+
+.inquilini-edit {
+    display: flex;
+    flex: 1 1 25%;
+    margin-right: 5px;
+    border: 2px solid #7f8fa6;
+    background-color: #f5f6fa;
+}
+
+.inquilini-edit-div {
+    display: flex;
 }

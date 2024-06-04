@@ -29,10 +29,10 @@ table {
 
 .table-row {
     padding: 10px;
-    background-color: gainsboro;
+    background-color: #f5f6fa;
 }
 
 .table-header {
     box-shadow: 0px 0px 5px black;
-    background-color: silver;
+    background-color: #dcdde1;
 }

@@ -66,7 +66,6 @@ app.post('/api/inquilini', (req, res) => {
             message: 'Validation error'
         });
     }
-    // TODO: capire perchè non funziona
     return database.findOne(
         { type: 'inquilino', _id: data._id },
         (err, doc) => {
@@ -76,6 +75,7 @@ app.post('/api/inquilini', (req, res) => {
                     message: "Old document doesn't exist"
                 });
             }
+            // REMINDER: l'update su nedb viene gestito aggiungendo un nuovo documento con stesso _id finchè non si chiude il programma, a quel punto viene mantenuto solo l'ultimo documento con quell'_id nel file
             database.update(
                 { _id: doc._id },
                 { ...data },
