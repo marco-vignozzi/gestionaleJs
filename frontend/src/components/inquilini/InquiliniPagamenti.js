@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import '../../styles/inquilini.css';
 
-export default function InquiliniPagamenti(props) {
+function _InquiliniPagamenti(props) {
     const { data } = props;
     return (
         <div>
@@ -12,14 +13,9 @@ export default function InquiliniPagamenti(props) {
                           return (
                               <div
                                   key={`inquilino-pagamenti-${i}`}
-                                  className={
-                                      'inquilino-pagamenti' +
-                                      (el.hasDebit ? ' debito' : '')
-                                  }
+                                  className={'inquilino-pagamenti' + (el.hasDebit ? ' debito' : '')}
                               >
-                                  {`${el.name} ${el.secondName} ${
-                                      el.hasDebit ? '❌' : '✅'
-                                  }`}
+                                  {`${el.name} ${el.secondName} ${el.hasDebit ? '❌' : '✅'}`}
                               </div>
                           );
                       })
@@ -28,3 +24,5 @@ export default function InquiliniPagamenti(props) {
         </div>
     );
 }
+
+export default memo(_InquiliniPagamenti);

@@ -1,18 +1,9 @@
-/* 
-.viewport-div {
-} */
-
 * {
     box-sizing: border-box; /*GOD HACK!!!*/
     margin: 0px;
 }
 .search-div {
-    margin: 10px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-}
-.search-banner {
-    border: 2px solid salmon;
-    height: 100px;
 }

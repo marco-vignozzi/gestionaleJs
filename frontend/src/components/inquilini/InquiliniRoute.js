@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Table from '../table/Table';
 import useInquilini from './use-inquilini';
 import InquiliniPagamenti from './InquiliniPagamenti';
-import '../../styles/App.css';
+import '../../styles/inquilini.css';
 import InquiliniEdit from './InquiliniEdit';
 
 const columns = [
@@ -73,7 +73,7 @@ export default function InquiliniRoute(props) {
             <div className="search-banner">SEARCHBANNER</div>
             <div className="inquilini-edit-div">
                 <InquiliniEdit />
-                <Table columns={columns} rows={rows} />
+                <Table className="inquilini-table" columns={columns} rows={rows} />
             </div>
             <InquiliniPagamenti data={data} />
         </div>

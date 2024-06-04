@@ -21,19 +21,14 @@ function _TableRow(props) {
     const { rowData, columns, mapped = true, id } = props;
 
     const tdWidth =
-        (!mapped &&
-            Array.isArray(rowData) &&
-            Array.isArray(columns) &&
-            Math.floor(columns.length / rowData.length)) ||
+        (!mapped && Array.isArray(rowData) && Array.isArray(columns) && Math.floor(columns.length / rowData.length)) ||
         1;
 
     return rowData ? (
         mapped && columns ? (
             <tr
                 onClick={rowData.onClick}
-                className={`table-row ${
-                    rowData.className ? rowData.className : ''
-                }`}
+                className={`table-row ${rowData.className ? rowData.className : ''}`}
                 key={`row-${id}`}
             >
                 {Object.values(columns).map((column, i) => {
@@ -76,22 +71,16 @@ function _TableCell(props) {
 const TableCell = memo(_TableCell, (prev, next) => prev.value === next.value);
 
 export default function Table(props) {
-    const { columns, rows, mapped = true } = props;
+    const { className, columns, rows, mapped = true } = props;
 
     return (
-        <div className="table-container">
+        <div className={'table-container ' + className}>
             <table>
                 <TableHeader rowData={columns} sticky={true} />
                 <tbody>
                     {columns && rows.length > 0 ? (
                         rows.map((row, i) => (
-                            <TableRow
-                                key={'row-' + i}
-                                id={row._id}
-                                rowData={row}
-                                columns={columns}
-                                mapped={mapped}
-                            />
+                            <TableRow key={'row-' + i} id={row._id} rowData={row} columns={columns} mapped={mapped} />
                         ))
                     ) : (
                         <TableRow
