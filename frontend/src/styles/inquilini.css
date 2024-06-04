@@ -1,3 +1,67 @@
+/* INQUILINO SEARCH */
+.inquilini-search {
+    border: 2px solid salmon;
+    height: 100px;
+}
+
+/* INQUILINO TABLE */
+.inquilini-table {
+    flex: 1 1 75%;
+    max-height: fit-content;
+}
+.inquilini-row {
+    cursor: pointer !important;
+    box-sizing: border-box;
+    height: auto;
+}
+.inquilini-row:hover {
+    transition: all 0s;
+    background-color: rgb(251, 197, 49, 0.2);
+    outline: 2px solid rgb(251, 197, 49, 0.5);
+}
+.inquilini-row:active {
+    transition: outline-width 0.5s, background-color 0.2s;
+    position: relative;
+    z-index: 2;
+    background-color: rgb(251, 197, 49, 0.4);
+    outline: 2px solid rgb(251, 197, 49, 0.8);
+    box-shadow: 0px 0px 2px 1px rgb(225, 177, 44);
+}
+
+/* INQUILINO EDIT */
+.inquilini-edit-div {
+    display: flex;
+    justify-content: center;
+    max-height: 600px;
+}
+.inquilini-edit {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 25%;
+    overflow-x: hidden;
+    margin-right: 5px;
+    padding: 10px 10px 10px 5px;
+    border: solid #7f8fa6;
+    border-width: 2px 2px 2px 0;
+    border-radius: 0px 10px 10px 0px;
+    background-color: #f5f6fa;
+}
+.inquilini-edit-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    outline: 2px solid pink;
+    padding: 2px;
+}
+.inquilini-edit-input {
+    height: 30px;
+}
+.input-label {
+    font-family: 'Gill Sans', sans-serif;
+    color: rgb(47, 54, 64);
+}
+
+/* INQUILINO PAGAMENTI */
 .pagamenti-title {
     margin-top: 10px;
     border: 2px solid black;
@@ -29,11 +93,9 @@
     /*overflow: hidden; /* Nasconde il testo che esce dai bordi */
     text-overflow: clip; /* Aggiunge i tre puntini di sospensione se il testo è troppo lungo */
 }
-
 .inquilino-pagamenti:hover {
     background-color: rgb(76, 209, 55, 0.4);
 }
-
 .debito {
     border: 2px solid rgb(194, 54, 22);
 }
@@ -41,50 +103,8 @@
     background-color: rgb(232, 65, 24, 0.4);
 }
 
-.inquilini-row {
-    cursor: pointer !important;
-    box-sizing: border-box;
-    height: 45px;
-    /* PER EVITARE IL RIDIMENSIONAMENTO DOVUTO ALLA VARIAZIONE DELLA LUNGHEZZA DEL TESTO
-    /* width: 150px; /* Imposta la larghezza desiderata */
-    /*white-space: nowrap; /* Impedisce al testo di andare a capo */
-    /*overflow: hidden; /* Nasconde il testo che esce dai bordi */
-    /*text-overflow: ellipsis; /* Aggiunge i tre puntini di sospensione se il testo è troppo lungo */
-}
-
-.inquilini-row:hover {
-    transition: all 0s;
-    background-color: rgb(251, 197, 49, 0.2);
-    outline: 2px solid rgb(251, 197, 49, 0.5);
-}
-
-.inquilini-row:active {
-    transition: outline-width 0.5s, background-color 0.2s;
-    position: relative;
-    z-index: 2;
-    background-color: rgb(251, 197, 49, 0.4);
-    outline: 2px solid rgb(251, 197, 49, 0.8);
-    box-shadow: 0px 0px 2px 1px rgb(225, 177, 44);
-}
-
-.inquilini-edit {
-    display: flex;
-    flex: 1 1 25%;
-    margin-right: 5px;
-    border: solid #7f8fa6;
-    border-width: 2px 2px 2px 0;
-    background-color: #f5f6fa;
-}
-
-.inquilini-edit-div {
-    display: flex;
-}
-
-.inquilini-search {
-    border: 2px solid salmon;
-    height: 100px;
-}
-
-.inquilini-table {
-    flex: 1 1 75%;
-}
+/* PER EVITARE IL RIDIMENSIONAMENTO DOVUTO ALLA VARIAZIONE DELLA LUNGHEZZA DEL TESTO
+/* width: 150px; /* Imposta la larghezza desiderata */
+/* white-space: nowrap; /* Impedisce al testo di andare a capo */
+/* overflow: hidden; /* Nasconde il testo che esce dai bordi */
+/* text-overflow: ellipsis; /* Aggiunge i tre puntini di sospensione se il testo è troppo lungo */

@@ -1,5 +1,10 @@
 import '../../styles/inquilini.css';
 
 export default function InquiliniEdit(props) {
-    return <div className="inquilini-edit">INQUILINI EDIT</div>;
+    const { editInputs, ...rest } = props;
+    return (
+        <div {...rest} className="inquilini-edit">
+            {editInputs ? Object.values(editInputs).map((el) => el) : null}
+        </div>
+    );
 }
