@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Table from '../table/Table';
 import useInquilini from './use-inquilini';
 import InquiliniPagamenti from './InquiliniPagamenti';
@@ -41,7 +41,7 @@ const columns = [
 ];
 
 export default function InquiliniRoute(props) {
-    const { data, update, query, ...rest } = useInquilini();
+    const { data, updateInquilini, query, deleteInquilino, ...rest } = useInquilini();
 
     // State che indica quale inquilino è attualmente selezionato
     // se null non mostro la edit
@@ -71,27 +71,35 @@ export default function InquiliniRoute(props) {
 
     // cosa fare quando arrivano i dati
     useEffect(() => {
-        if (!data || !Array.isArray(data) || query.isPending || update.isPending) return;
+        if (!data || !Array.isArray(data) || query.isPending || updateInquilini.isPending) return;
         // const data = {
         //     ...el,
         //     name: el.name?.includes('ARMINIO') ? 'FERRANDO 💪🏻' : 'ARMINIO 🧠'
         // };
-        // update.mutate(data);
+        // updateInquilini.mutate(data);
         const newData = processData(data);
         setRows(newData);
-    }, [query.isPending, data, update.isPending]);
+    }, [query.isPending, data, updateInquilini.isPending]);
 
     // cosa fare quando cambio activeInquilino
     useEffect(() => {
         typeof initEditInput === 'function' && initEditInput(columns, activeInquilino);
     }, [activeInquilino]);
 
-    const onDeleteInquilino = () => {
-        window.confirm("Sei sicuro di voler eliminare definitivamente l'inquilino?") && setActiveInquilino(null);
-    };
-    const onCloseEdit = () => {
-        window.confirm('Sei sicuro di voler chiudere? Le modifiche non salvate andranno perse') &&
+    const onDeleteInquilino = useCallback(() => {
+        if (window.confirm("Eliminare definitivamente l'inquilino?")) {
+            deleteInquilino.mutate(activeInquilino._id);
             setActiveInquilino(null);
+        }
+    }, [deleteInquilino, activeInquilino]);
+
+    const onSaveInquilino = () => {
+        window.confirm('Salvare le modifiche?') &&
+            updateInquilini.mutate({ ...editInputStates, type: 'inquilino', _id: activeInquilino._id });
+    };
+
+    const onCloseEdit = () => {
+        window.confirm('Annullare le modifiche?') && setActiveInquilino(null);
     };
 
     return data ? (
@@ -104,6 +112,7 @@ export default function InquiliniRoute(props) {
                     title="Modifica Inquilino"
                     onClose={onCloseEdit}
                     onDelete={onDeleteInquilino}
+                    onSave={onSaveInquilino}
                     editInputs={editInputElements}
                     activeInquilino={activeInquilino}
                 />

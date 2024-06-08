@@ -11,32 +11,15 @@ const inquiliniValidKeys = [
     'hasDebit',
     'type'
 ];
-const inquiliniRequiredKeys = [
-    '_id',
-    'name',
-    'secondName',
-    'country',
-    'city',
-    'address',
-    'phone',
-    'email',
-    'hasDebit',
-    'type'
-];
+const inquiliniRequiredKeys = ['_id', 'name', 'secondName', 'type'];
 
 const makeValidators = function () {
-    const validateInquilino = (data) =>
-        validate(data, inquiliniValidKeys, inquiliniRequiredKeys);
+    const validateInquilino = (data) => validate(data, inquiliniValidKeys, inquiliniRequiredKeys);
     return { validateInquilino };
 };
 
 const validate = (data, validKeys, requiredKeys) => {
-    if (
-        Array.isArray(data) ||
-        !Array.isArray(validKeys) ||
-        !Array.isArray(requiredKeys)
-    )
-        return false;
+    if (Array.isArray(data) || !Array.isArray(validKeys) || !Array.isArray(requiredKeys)) return false;
 
     // Controllo che includa le chiavi required
     for (let key of requiredKeys) {

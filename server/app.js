@@ -23,14 +23,8 @@ app.use(bodyParser.json());
 // Middleware per abilitare CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
-    res.setHeader(
-        'Access-Control-Allow-Methods',
-        'GET, POST, PUT, PATCH, DELETE'
-    );
-    res.setHeader(
-        'Access-Control-Allow-Headers',
-        'Content-Type, Authorization'
-    );
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 });
 
@@ -48,8 +42,10 @@ app.options('/api', (req, res) => {
 app.get('/api/inquilini', (req, res) => {
     database.find({ type: 'inquilino' }, (err, rows) => {
         if (err) {
-            res.end();
-            return;
+            return res.status(500).json({
+                status: 'error',
+                message: 'Internal Server Error'
+            });
         }
         res.json(rows);
     });
@@ -61,40 +57,56 @@ app.post('/api/inquilini', (req, res) => {
     const data = req.body?.data;
     if (!data) return res.json({ status: 'error', message: 'No Data' });
     if (!validateInquilino(data)) {
-        return res.json({
+        return res.status(500).json({
             status: 'error',
             message: 'Validation error'
         });
     }
-    return database.findOne(
-        { type: 'inquilino', _id: data._id },
-        (err, doc) => {
-            if (err || !doc) {
-                return res.json({
-                    status: 'error',
-                    message: "Old document doesn't exist"
-                });
-            }
-            // REMINDER: l'update su nedb viene gestito aggiungendo un nuovo documento con stesso _id finchè non si chiude il programma, a quel punto viene mantenuto solo l'ultimo documento con quell'_id nel file
-            database.update(
-                { _id: doc._id },
-                { ...data },
-                { returnUpdatedDocs: true, upsert: false },
-                (err, _, affectedDocuments) => {
-                    if (err) {
-                        return res.json({
-                            status: 'error',
-                            message: 'Update failed'
-                        });
-                    }
-
-                    return res.json({
-                        status: 'success',
-                        updated: affectedDocuments,
-                        timestamp: Date.now()
+    return database.findOne({ type: 'inquilino', _id: data._id }, (err, doc) => {
+        if (err || !doc) {
+            return res.status(500).json({
+                status: 'error',
+                message: "Old document doesn't exist"
+            });
+        }
+        // REMINDER: l'update su nedb viene gestito aggiungendo un nuovo documento con stesso _id finchè non si chiude il programma, a quel punto viene mantenuto solo l'ultimo documento con quell'_id nel file
+        database.update(
+            { _id: doc._id },
+            { ...data },
+            { returnUpdatedDocs: true, upsert: false },
+            (err, _, affectedDocuments) => {
+                console.log('UPDATED: ', affectedDocuments);
+                if (err) {
+                    return res.status(500).json({
+                        status: 'error',
+                        message: 'Update failed'
                     });
                 }
-            );
+
+                return res.status(200).json({
+                    status: 'success',
+                    updated: affectedDocuments,
+                    timestamp: Date.now()
+                });
+            }
+        );
+    });
+});
+// DELETE
+app.delete('/api/inquilini/:id', (req, res) => {
+    const { id } = req.params;
+    database.remove({ _id: id }, {}, (err, numRemoved) => {
+        console.log('NUM REMOVED:', numRemoved);
+        if (err) {
+            return res.status(500).json({
+                status: 'error',
+                message: err.message
+            });
         }
-    );
+        res.status(200).json({
+            status: 'success',
+            removed: numRemoved,
+            timestamp: Date.now()
+        });
+    });
 });

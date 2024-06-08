@@ -1,15 +1,29 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-const fetchInquilini = async () =>
-    await fetch('http://localhost:3000/api/inquilini').then((res) => {
+const API_URL = 'http://localhost:3000/api';
+
+const fetchReq = async () =>
+    await fetch(`${API_URL}/inquilini`)
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error('Network response NOT okk!');
+            }
+            return res.json();
+        })
+        .catch((err) => console.log('FETCH INQUILINI ERROR: ', err));
+
+const deleteReq = async (id) =>
+    await fetch(`${API_URL}/inquilini/${id}`, {
+        method: 'DELETE'
+    }).then((res) => {
         if (!res.ok) {
             throw new Error('Network response NOT okk!');
         }
         return res.json();
     });
 
-const updateInquilini = async (data) =>
-    await fetch('http://localhost:3000/api/inquilini', {
+const updateReq = async (data) =>
+    await fetch(`${API_URL}/inquilini`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ data })
@@ -30,15 +44,22 @@ export default function useInquilini(options) {
     //  isSuccess or status === 'success' - The query was successful and data is available
     const { data, ...query } = useQuery({
         queryKey: ['inquilini'],
-        queryFn: fetchInquilini
+        queryFn: fetchReq
     });
-    const update = useMutation({
-        mutationFn: (data) => updateInquilini(data),
+    const updateInquilini = useMutation({
+        mutationFn: (data) => updateReq(data),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['inquilini'] });
+            query.refetch();
+        }
+    });
+    const deleteInquilino = useMutation({
+        mutationFn: (inquilinoId) => deleteReq(inquilinoId),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['inquilini'] });
             query.refetch();
         }
     });
 
-    return { query, update, data };
+    return { query, updateInquilini, deleteInquilino, data };
 }
