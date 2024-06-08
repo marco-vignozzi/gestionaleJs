@@ -15,12 +15,14 @@ const fetchReq = async () =>
 const deleteReq = async (id) =>
     await fetch(`${API_URL}/inquilini/${id}`, {
         method: 'DELETE'
-    }).then((res) => {
-        if (!res.ok) {
-            throw new Error('Network response NOT okk!');
-        }
-        return res.json();
-    });
+    })
+        .then((res) => {
+            if (!res.ok) {
+                throw new Error('Network response NOT okk!');
+            }
+            return res.json();
+        })
+        .catch((err) => console.log('DELETE INQUILINI ERROR: ', err));
 
 const updateReq = async (data) =>
     await fetch(`${API_URL}/inquilini`, {
@@ -44,7 +46,11 @@ export default function useInquilini(options) {
     //  isSuccess or status === 'success' - The query was successful and data is available
     const { data, ...query } = useQuery({
         queryKey: ['inquilini'],
-        queryFn: fetchReq
+        queryFn: fetchReq,
+        onError: (model) => {
+            console.log(model);
+            model.data = {};
+        }
     });
     const updateInquilini = useMutation({
         mutationFn: (data) => updateReq(data),

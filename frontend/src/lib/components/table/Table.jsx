@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import '../../styles/table.css';
+import '../styles/table.css';
 
 // TODO: implementare sistema di onClick e className
 function _TableCell(props) {
@@ -20,7 +20,12 @@ function TableHeader(props) {
         <thead className={`table-header table-row${sticky ? ' sticky' : ''}`}>
             <tr key="header">
                 {rowData.map((el) => (
-                    <td className="table-cell" key={el.id}>
+                    <td
+                        // fullWidth determina se il contenuto delle celle di quella colonna viene forzato su una linea
+                        className={el.className ? el.className : 'table-cell'}
+                        key={el.id}
+                        style={{ minWidth: el.minWidth ? el.minWidth : 'auto' }}
+                    >
                         {el.label}
                     </td>
                 ))}

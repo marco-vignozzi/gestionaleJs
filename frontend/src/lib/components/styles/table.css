@@ -36,3 +36,8 @@ table {
     box-shadow: 0px 0px 5px black;
     background-color: #dcdde1;
 }
+.table-header td {
+    border-right: 2px solid grey;
+    border-left: 2px solid grey;
+    overflow-wrap: break-word; /* Impedisce al testo di andare a capo */
+}

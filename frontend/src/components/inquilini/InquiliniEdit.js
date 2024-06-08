@@ -1,3 +1,4 @@
+import { act, useCallback, useState } from 'react';
 import Icon from '../../lib/components/icon/Icon';
 import '../../styles/inquilini.css';
 
@@ -12,7 +13,7 @@ function EditButton(props) {
 }
 
 export default function InquiliniEdit(props) {
-    const { editInputs, title = '', onClose, onDelete, onSave, activeInquilino = null, ...rest } = props;
+    const { editInputs, title = '', onClose, onDelete, onSave, onAddPayment, activeInquilino = null, ...rest } = props;
 
     if (!activeInquilino || !editInputs) return null;
 
@@ -28,6 +29,13 @@ export default function InquiliniEdit(props) {
                     className="inquilini-edit-btn inquilini-edit-delete-btn"
                     width="20px"
                     height="20px"
+                    type={'save'}
+                    onClick={onSave}
+                />
+                <EditButton
+                    className="inquilini-edit-btn inquilini-edit-delete-btn"
+                    width="20px"
+                    height="20px"
                     type={'delete'}
                     onClick={onDelete}
                 />
@@ -35,8 +43,8 @@ export default function InquiliniEdit(props) {
                     className="inquilini-edit-btn inquilini-edit-delete-btn"
                     width="20px"
                     height="20px"
-                    type={'save'}
-                    onClick={onSave}
+                    type={'payment'}
+                    onClick={onAddPayment}
                 />
             </div>
         </div>

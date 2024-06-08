@@ -1,42 +1,43 @@
 import { useState, useEffect, useCallback } from 'react';
-import Table from '../table/Table';
+import Table from '../../lib/components/table/Table';
 import useInquilini from './use-inquilini';
 import InquiliniPagamenti from './InquiliniPagamenti';
 import InquiliniEdit from './InquiliniEdit';
 import useEditInputs from '../../helpers/useEditInputs';
+import Modal from '../../lib/components/modal/Modal';
 import '../../styles/inquilini.css';
 
 const columns = [
-    { id: 'name', label: 'Name', minWidth: 170 },
+    { id: 'name', label: 'Nome', minWidth: 150 },
     {
         id: 'secondName',
-        label: 'Second Name',
-        minWidth: 170
-    },
-    {
-        id: 'country',
-        label: 'Country',
-        minWidth: 170
-    },
-    {
-        id: 'city',
-        label: 'City',
-        minWidth: 170
-    },
-    {
-        id: 'address',
-        label: 'Address',
-        minWidth: 170
+        label: 'Cognome',
+        minWidth: 150
     },
     {
         id: 'phone',
-        label: 'Phone',
-        minWidth: 170
+        label: 'Telefono',
+        minWidth: 100
     },
     {
         id: 'email',
         label: 'Email',
-        minWidth: 170
+        minWidth: 260
+    },
+    {
+        id: 'address',
+        label: 'Indirizzo',
+        minWidth: 260
+    },
+    {
+        id: 'city',
+        label: 'Città',
+        minWidth: 140
+    },
+    {
+        id: 'country',
+        label: 'Nazione',
+        minWidth: 100
     }
 ];
 
@@ -47,6 +48,10 @@ export default function InquiliniRoute(props) {
     // se null non mostro la edit
     const [activeInquilino, setActiveInquilino] = useState(null);
     const [rows, setRows] = useState([]);
+    // Indica se è aperta la modale di aggiunta pagamento
+    const [isAddingPayment, setIsAddingPayment] = useState(false);
+    // Indica se è aperta la modale di visualizzazione dei pagamenti
+    const [isPaymentsOpen, setIsPaymentsOpen] = useState(false);
 
     const {
         inputElements: editInputElements,
@@ -102,7 +107,7 @@ export default function InquiliniRoute(props) {
         window.confirm('Annullare le modifiche?') && setActiveInquilino(null);
     };
 
-    return data ? (
+    return (
         <div className="search-div">
             {/* <SearchBanner/> */}
             <div className="inquilini-search">SEARCHBANNER</div>
@@ -115,10 +120,23 @@ export default function InquiliniRoute(props) {
                     onSave={onSaveInquilino}
                     editInputs={editInputElements}
                     activeInquilino={activeInquilino}
+                    onAddPayment={(el) => {
+                        console.log(el);
+                        setIsAddingPayment(true);
+                    }}
                 />
                 <Table key={'inquilini-table'} className="inquilini-table" columns={columns} rows={rows} />
             </section>
-            <InquiliniPagamenti key={'inquilini-pagamenti'} data={data} />
+            <InquiliniPagamenti
+                key={'inquilini-pagamenti'}
+                data={data}
+                openModal={(el) => {
+                    console.log(el);
+                    setIsPaymentsOpen(true);
+                }}
+            />
+            <Modal className="adding-payments-modal" open={isAddingPayment} onClose={() => setIsAddingPayment(false)} />
+            <Modal className="payments-modal" open={isPaymentsOpen} onClose={() => setIsPaymentsOpen(false)} />
         </div>
-    ) : null;
+    );
 }

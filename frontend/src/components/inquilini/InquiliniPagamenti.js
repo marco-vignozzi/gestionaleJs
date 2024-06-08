@@ -1,8 +1,7 @@
-import { memo } from 'react';
 import '../../styles/inquilini.css';
 
-function _InquiliniPagamenti(props) {
-    const { data } = props;
+export default function InquiliniPagamenti(props) {
+    const { data, openModal } = props;
     return (
         <div>
             <div className="pagamenti-title">SITUAZIONE PAGAMENTI:</div>
@@ -14,6 +13,7 @@ function _InquiliniPagamenti(props) {
                               <div
                                   key={`inquilino-pagamenti-${i}`}
                                   className={'inquilino-pagamenti' + (el.hasDebit ? ' debito' : '')}
+                                  onClick={() => openModal(el)}
                               >
                                   {`${el.name} ${el.secondName} ${el.hasDebit ? '❌' : '✅'}`}
                               </div>
@@ -24,5 +24,3 @@ function _InquiliniPagamenti(props) {
         </div>
     );
 }
-
-export default memo(_InquiliniPagamenti);

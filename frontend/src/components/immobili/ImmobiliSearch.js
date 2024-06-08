@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import Table from '../table/Table';
+import Table from '../../lib/components/table/Table';
 import '../../styles/App.css';
 
 const columns = [

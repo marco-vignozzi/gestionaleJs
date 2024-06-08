@@ -12,6 +12,7 @@
 .inquilini-row {
     cursor: pointer !important;
     box-sizing: border-box;
+    border: 1px solid rgb(72, 126, 176, 0.3);
     height: auto;
 }
 .inquilini-row:hover {
@@ -37,7 +38,7 @@
 .inquilini-edit {
     display: flex;
     max-width: 350px;
-    flex: 1 1 25%;
+    flex: 1 1 60%;
     flex-direction: column;
     overflow-x: hidden;
     margin-right: 5px;
