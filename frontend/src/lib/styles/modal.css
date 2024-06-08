@@ -10,11 +10,10 @@
     position: fixed;
     top: 50%; /* Centra verticalmente */
     left: 50%; /* Centra orizzontalmente */
-    transform: translate(-50%, -52%); /* Compensa per la metà della larghezza e altezza */
+    transform: translate(-50%, -50%); /* Compensa per la metà della larghezza e altezza */
     width: 80%; /* Imposta la larghezza desiderata */
     height: 80%; /* Imposta l'altezza fissa */
     padding: 10px;
-    margin: 20px;
     border-radius: 18px;
     background-color: rgba(255, 255, 255, 0.8);
     z-index: 10000;

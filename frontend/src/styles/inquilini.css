@@ -49,13 +49,8 @@
     background-color: #f5f6fa;
 }
 .inquilini-edit-btn {
-    display: flex;
     margin: 0px 5px 0px 0px;
-    cursor: pointer;
     background-color: transparent;
-    align-items: center;
-    justify-content: center;
-    padding: 3px;
 }
 .inquilini-edit-header {
     display: flex;
@@ -85,6 +80,24 @@
 }
 .inquilini-edit-close-btn:hover {
     background-color: rgba(39, 60, 117, 0.3);
+}
+.inquilini-edit-payment-btn {
+    margin-right: auto;
+}
+.inquilini-edit-payment-btn:hover {
+    svg {
+        background-color: rgba(255, 215, 0, 1);
+    }
+}
+.inquilini-edit-save-btn:hover {
+    svg {
+        color: rgba(39, 60, 117, 1) !important;
+    }
+}
+.inquilini-edit-delete-btn:hover {
+    svg {
+        color: red !important;
+    }
 }
 .inquilini-edit-row {
     display: flex;

@@ -1,16 +1,5 @@
-import { act, useCallback, useState } from 'react';
-import Icon from '../../lib/components/icon/Icon';
+import Button from '../../lib/components/button/Button';
 import '../../styles/inquilini.css';
-
-function EditButton(props) {
-    const { className, type, width, height, ...rest } = props;
-
-    return (
-        <button className={className} {...rest}>
-            <Icon type={type} width={width} height={height} />
-        </button>
-    );
-}
 
 export default function InquiliniEdit(props) {
     const { editInputs, title = '', onClose, onDelete, onSave, onAddPayment, activeInquilino = null, ...rest } = props;
@@ -21,30 +10,31 @@ export default function InquiliniEdit(props) {
         <div {...rest} className="inquilini-edit">
             <div className="inquilini-edit-header">
                 {title ? <div className="inquilini-edit-title">{title}</div> : null}
-                <EditButton className="inquilini-edit-btn inquilini-edit-close-btn" type={'close'} onClick={onClose} />
+                <Button className="inquilini-edit-btn inquilini-edit-close-btn" type={'close'} onClick={onClose} />
             </div>
             {editInputs ? <div className="inquilini-edit-body">{Object.values(editInputs).map((el) => el)}</div> : null}
             <div className="inquilini-edit-footer">
-                <EditButton
-                    className="inquilini-edit-btn inquilini-edit-delete-btn"
+                <Button
+                    className="inquilini-edit-btn inquilini-edit-payment-btn"
+                    label="Add Payment"
+                    width="20px"
+                    height="20px"
+                    type={'payment'}
+                    onClick={onAddPayment}
+                />
+                <Button
+                    className="inquilini-edit-btn inquilini-edit-save-btn"
                     width="20px"
                     height="20px"
                     type={'save'}
                     onClick={onSave}
                 />
-                <EditButton
+                <Button
                     className="inquilini-edit-btn inquilini-edit-delete-btn"
                     width="20px"
                     height="20px"
                     type={'delete'}
                     onClick={onDelete}
-                />
-                <EditButton
-                    className="inquilini-edit-btn inquilini-edit-delete-btn"
-                    width="20px"
-                    height="20px"
-                    type={'payment'}
-                    onClick={onAddPayment}
                 />
             </div>
         </div>

@@ -1,0 +1,23 @@
+.btn {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+}
+.btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    .btn-icon {
+        color: rgba(0, 0, 0, 1);
+    }
+}
+
+.btn-icon {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.btn-label {
+    text-align: center;
+    margin-right: 4px;
+    width: auto;
+}

@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import '../styles/table.css';
+import '../../styles/table.css';
 
 // TODO: implementare sistema di onClick e className
 function _TableCell(props) {
