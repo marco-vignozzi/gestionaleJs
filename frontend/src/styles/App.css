@@ -1,6 +1,7 @@
 * {
     box-sizing: border-box; /*GOD HACK!!!*/
     margin: 0px;
+    font-family: 'Gill Sans', sans-serif;
 }
 .search-div {
     display: flex;

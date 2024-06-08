@@ -29,7 +29,7 @@ export default function useInquilini(options) {
     //  isError or status === 'error' - The query encountered an error
     //  isSuccess or status === 'success' - The query was successful and data is available
     const { data, ...query } = useQuery({
-        querKey: ['inquilini'],
+        queryKey: ['inquilini'],
         queryFn: fetchInquilini
     });
     const update = useMutation({

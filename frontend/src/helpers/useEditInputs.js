@@ -1,4 +1,23 @@
-import { useReducer, useState } from 'react';
+import React, { useReducer } from 'react';
+
+function EditInput(props) {
+    const { id, label, value, onChange } = props;
+    return (
+        <div className="inquilini-edit-row">
+            {label ? (
+                <label htmlFor={`inquilini-input-${id}`} className="input-label">
+                    {label}
+                </label>
+            ) : null}
+            <input
+                id={`inquilini-input-${id}`}
+                className="edit-input inquilini-edit-input"
+                value={value}
+                onChange={onChange}
+            ></input>
+        </div>
+    );
+}
 
 export default function useEditInputs(keysData, inquilinoData) {
     const initialState = (columns, data) => {
@@ -29,28 +48,20 @@ export default function useEditInputs(keysData, inquilinoData) {
 
     const [inputStates, dispatch] = useReducer(reducer, {}, () => initialState(keysData, inquilinoData));
 
-    if (!keysData || !inquilinoData) return {};
+    if (!inputStates /* !keysData || !inquilinoData */) return {};
     const inputElements = {};
     keysData.forEach((el) => {
         // Creao un oggetto dove per ogni chiave di inquilino c'è l'elemento input
-        inputElements[`${el.id}`] = (
-            <div className="inquilini-edit-row">
-                <label
-                    htmlFor={`inquilini-input-${el.id}`}
-                    key={`inquilini-input-label-${el.id}`}
-                    className="input-label"
-                >
-                    {el.label}
-                </label>
-                <input
-                    id={`inquilini-input-${el.id}`}
+        inputElements[`${el.id}`] =
+            inputStates[el.id] !== undefined ? (
+                <EditInput
                     key={`inquilini-input-${el.id}`}
-                    className="edit-input inquilini-edit-input"
+                    id={el.id}
                     value={inputStates[el.id]}
+                    label={el.label}
                     onChange={(e) => dispatch(/* ACTION: */ { type: 'UPDATE_INPUT', id: el.id, value: e.target.value })}
-                ></input>
-            </div>
-        );
+                />
+            ) : null;
     });
 
     const init = (columns, data) => dispatch({ type: 'INIT', columns, data });

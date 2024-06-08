@@ -86,15 +86,30 @@ export default function InquiliniRoute(props) {
         typeof initEditInput === 'function' && initEditInput(columns, activeInquilino);
     }, [activeInquilino]);
 
+    const onDeleteInquilino = () => {
+        window.confirm("Sei sicuro di voler eliminare definitivamente l'inquilino?") && setActiveInquilino(null);
+    };
+    const onCloseEdit = () => {
+        window.confirm('Sei sicuro di voler chiudere? Le modifiche non salvate andranno perse') &&
+            setActiveInquilino(null);
+    };
+
     return data ? (
         <div className="search-div">
             {/* <SearchBanner/> */}
             <div className="inquilini-search">SEARCHBANNER</div>
-            <div className="inquilini-edit-div">
-                {activeInquilino ? <InquiliniEdit key={'inquilini-edit'} editInputs={editInputElements} /> : null}
+            <section className="inquilini-edit-section">
+                <InquiliniEdit
+                    key={'inquilini-edit'}
+                    title="Modifica Inquilino"
+                    onClose={onCloseEdit}
+                    onDelete={onDeleteInquilino}
+                    editInputs={editInputElements}
+                    activeInquilino={activeInquilino}
+                />
                 <Table key={'inquilini-table'} className="inquilini-table" columns={columns} rows={rows} />
-            </div>
-            <InquiliniPagamenti data={data} />
+            </section>
+            <InquiliniPagamenti key={'inquilini-pagamenti'} data={data} />
         </div>
     ) : null;
 }
