@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDom from 'react-dom';
 import Icon from '../icon/Icon';
 import '../styles/modal.css';
 
@@ -13,16 +14,25 @@ function CloseButton(props) {
 }
 
 export default function Modal(props) {
-    const { open, onClose, className, ...rest } = props;
+    const { open, onClose, title, className, children, ...rest } = props;
     if (!open) return null;
-    return (
+    return ReactDom.createPortal(
         <>
             <div className="modal-overlay"></div>
             <div className={`modal-panel ${className ? className : ''}`} {...rest}>
                 <div className="modal-header">
-                    <CloseButton type="close" className="close-btn" onClick={onClose} width="35px" height="35px" />
+                    {title ? <span className="modal-title">{title}</span> : null}
+                    <CloseButton
+                        type="close"
+                        className="modal-close-btn"
+                        onClick={onClose}
+                        width="35px"
+                        height="35px"
+                    />
                 </div>
+                {children ? { ...children } : null}
             </div>
-        </>
+        </>,
+        document.getElementById('portal')
     );
 }

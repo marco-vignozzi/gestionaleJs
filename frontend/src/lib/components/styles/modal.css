@@ -1,20 +1,22 @@
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background-color: rgb(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.6);
     z-index: 9999;
 }
 .modal-panel {
     display: flex;
     flex-direction: column;
     position: fixed;
-    inset: 10vh 10vw 10vh 10vw;
-    width: auto;
-    height: auto;
+    top: 50%; /* Centra verticalmente */
+    left: 50%; /* Centra orizzontalmente */
+    transform: translate(-50%, -52%); /* Compensa per la metà della larghezza e altezza */
+    width: 80%; /* Imposta la larghezza desiderata */
+    height: 80%; /* Imposta l'altezza fissa */
     padding: 10px;
     margin: 20px;
-    border: 10px solid violet;
-    background-color: rgb(255, 255, 255, 0.8);
+    border-radius: 18px;
+    background-color: rgba(255, 255, 255, 0.8);
     z-index: 10000;
 }
 .modal-header {
@@ -22,8 +24,14 @@
     width: 100%;
     height: 40px;
 }
-
-.close-btn {
+.modal-title {
+    align-content: flex-end;
+    width: 100%;
+    margin-left: 10px;
+    border-bottom: 2px solid rgba(39, 60, 117);
+    font-size: xx-large;
+}
+.modal-close-btn {
     display: flex;
     height: 40px;
     width: 40px;
@@ -35,8 +43,8 @@
     padding: 3px;
     border: none;
     border-radius: 100%;
-    transform: translate(7px, -18px);
+    transform: translate(10px, -6px);
 }
-.close-btn:hover {
-    background-color: rgb(39, 60, 117, 0.3);
+.modal-close-btn:hover {
+    background-color: rgba(39, 60, 117, 0.3);
 }

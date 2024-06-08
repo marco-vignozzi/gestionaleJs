@@ -135,8 +135,18 @@ export default function InquiliniRoute(props) {
                     setIsPaymentsOpen(true);
                 }}
             />
-            <Modal className="adding-payments-modal" open={isAddingPayment} onClose={() => setIsAddingPayment(false)} />
-            <Modal className="payments-modal" open={isPaymentsOpen} onClose={() => setIsPaymentsOpen(false)} />
+            <Modal
+                className="adding-payments-modal"
+                title="Aggiungi Pagamento"
+                open={isAddingPayment}
+                onClose={() => setIsAddingPayment(false)}
+            />
+            <Modal
+                className="payments-modal"
+                title="Storico Pagamenti"
+                open={isPaymentsOpen}
+                onClose={() => setIsPaymentsOpen(false)}
+            />
         </div>
     );
 }

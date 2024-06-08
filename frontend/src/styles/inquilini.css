@@ -12,21 +12,21 @@
 .inquilini-row {
     cursor: pointer !important;
     box-sizing: border-box;
-    border: 1px solid rgb(72, 126, 176, 0.3);
+    border: 1px solid rgba(72, 126, 176, 0.3);
     height: auto;
 }
 .inquilini-row:hover {
     transition: all 0s;
-    background-color: rgb(251, 197, 49, 0.2);
-    outline: 2px solid rgb(251, 197, 49, 0.5);
+    background-color: rgba(251, 197, 49, 0.2);
+    outline: 2px solid rgba(251, 197, 49, 0.5);
 }
 .inquilini-row:active {
     transition: outline-width 0.5s, background-color 0.2s;
     position: relative;
     z-index: 2;
-    background-color: rgb(251, 197, 49, 0.4);
-    outline: 2px solid rgb(251, 197, 49, 0.8);
-    box-shadow: 0px 0px 2px 1px rgb(225, 177, 44);
+    background-color: rgba(251, 197, 49, 0.4);
+    outline: 2px solid rgba(251, 197, 49, 0.8);
+    box-shadow: 0px 0px 2px 1px rgba(225, 177, 44);
 }
 
 /* INQUILINO EDIT */
@@ -62,7 +62,7 @@
     justify-content: space-between;
     font-weight: 600;
     font-size: 18px;
-    color: rgb(47, 54, 64);
+    color: rgba(47, 54, 64);
     /* outline: 2px solid blueviolet; */
     padding-left: 2px;
 }
@@ -84,7 +84,7 @@
     transform: translate(7px, -18px);
 }
 .inquilini-edit-close-btn:hover {
-    background-color: rgb(39, 60, 117, 0.6);
+    background-color: rgba(39, 60, 117, 0.3);
 }
 .inquilini-edit-row {
     display: flex;
@@ -96,7 +96,7 @@
     height: 30px;
 }
 .input-label {
-    color: rgb(53, 59, 72);
+    color: rgba(53, 59, 72);
 }
 
 /* INQUILINO PAGAMENTI */
@@ -120,7 +120,7 @@
     padding: 2px;
     margin: 10px;
     background-color: whitesmoke;
-    border: 2px solid rgb(68, 189, 50);
+    border: 2px solid rgba(68, 189, 50);
     cursor: pointer;
     font-size: 10px;
     font-weight: normal;
@@ -129,13 +129,19 @@
     text-overflow: clip; /* Aggiunge i tre puntini di sospensione se il testo è troppo lungo */
 }
 .inquilino-pagamenti:hover {
-    background-color: rgb(76, 209, 55, 0.4);
+    background-color: rgba(76, 209, 55, 0.4);
 }
 .debito {
-    border: 2px solid rgb(194, 54, 22);
+    border: 2px solid rgba(194, 54, 22);
 }
 .debito:hover {
-    background-color: rgb(232, 65, 24, 0.4);
+    background-color: rgba(232, 65, 24, 0.4);
+}
+
+/* INQUILINO MODALS */
+.adding-payments-modal {
+    max-height: 200px;
+    top: 50%;
 }
 
 /* PER EVITARE IL RIDIMENSIONAMENTO DOVUTO ALLA VARIAZIONE DELLA LUNGHEZZA DEL TESTO
