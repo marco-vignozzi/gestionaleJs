@@ -1,13 +1,18 @@
 /* INQUILINO SEARCH */
-.inquilini-search {
-    border: 2px solid salmon;
-    height: 100px;
+.inquilini-search-section {
+}
+.inquilini-search-banner {
+    height: 100px !important;
 }
 
 /* INQUILINO TABLE */
+.inquilini-table thead {
+    font-size: medium;
+}
 .inquilini-table {
     flex: 1 1 auto;
     max-height: fit-content;
+    font-size: small;
 }
 .inquilini-row {
     cursor: pointer !important;

@@ -53,6 +53,8 @@ export default function InquiliniRoute(props) {
     const [isAddingPayment, setIsAddingPayment] = useState(false);
     // Indica se è aperta la modale di visualizzazione dei pagamenti
     const [isPaymentsOpen, setIsPaymentsOpen] = useState(false);
+    // State della stringa cercata
+    const [queryString, setQueryString] = useState('');
 
     const {
         inputElements: editInputElements,
@@ -74,23 +76,36 @@ export default function InquiliniRoute(props) {
                 className: 'inquilini-row'
             };
         });
+    // funzione che filtra i dati in base alla stringa cercata
+    const filterData = (query) => {
+        const filtered = data.filter((el) =>
+            Object.entries(el).some(
+                ([key, val]) =>
+                    key != '_id' &&
+                    key != 'type' &&
+                    typeof val === 'string' &&
+                    val.toLowerCase().includes(query.toLowerCase())
+            )
+        );
+        console.log('dati:', data);
+        console.log("filtrati con query string '" + queryString + "':", filtered);
+        return filtered;
+    };
 
     // cosa fare quando arrivano i dati
     useEffect(() => {
         if (!data || !Array.isArray(data) || query.isPending || updateInquilini.isPending) return;
-        // const data = {
-        //     ...el,
-        //     name: el.name?.includes('ARMINIO') ? 'FERRANDO 💪🏻' : 'ARMINIO 🧠'
-        // };
-        // updateInquilini.mutate(data);
-        const newData = processData(data);
+        let newData;
+        if (queryString) newData = filterData(queryString); // filtro in base alla query string
+        newData = processData(newData ? newData : data); // se ho filtrato processo i dati nuovi
+        console.log('NUOVE RIGHE: ', newData);
         setRows(newData);
-    }, [query.isPending, data, updateInquilini.isPending]);
+    }, [data, queryString, query.isPending, updateInquilini.isPending]);
 
     // cosa fare quando cambio activeInquilino
     useEffect(() => {
         typeof initEditInput === 'function' && initEditInput(columns, activeInquilino);
-    }, [activeInquilino, initEditInput]);
+    }, [activeInquilino]);
 
     const onDeleteInquilino = useCallback(() => {
         if (window.confirm("Eliminare definitivamente l'inquilino?")) {
@@ -110,9 +125,13 @@ export default function InquiliniRoute(props) {
 
     return (
         <div className="search-div">
-            {/* <SearchBanner/> */}
-            <section className="inquilini-search">
-                <SearchBanner />
+            <section className="inquilini-search-section">
+                <SearchBanner
+                    className="inquilini-search-banner"
+                    inputPlaceholder={'Filtra gli inquilini...'}
+                    inputValue={queryString}
+                    onInputChange={(e) => setQueryString(e.target.value)}
+                />
             </section>
             <section className="inquilini-edit-section">
                 <InquiliniEdit

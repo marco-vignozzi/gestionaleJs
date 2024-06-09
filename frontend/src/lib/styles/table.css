@@ -17,7 +17,8 @@ table {
     flex-direction: column;
     overflow: auto;
     border: 1px solid silver;
-    box-shadow: 0px 0px 5px grey;
+    border-radius: 10px;
+    box-shadow: 0px 0px 2px grey;
     background-color: azure;
 }
 
@@ -33,7 +34,7 @@ table {
 }
 
 .table-header {
-    box-shadow: 0px 0px 5px black;
+    box-shadow: 0px 0px 2px black;
     background-color: #dcdde1;
 }
 .table-header td {

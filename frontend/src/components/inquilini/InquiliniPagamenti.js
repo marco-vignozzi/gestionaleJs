@@ -8,7 +8,7 @@ export default function InquiliniPagamenti(props) {
             <div className="inquilini-pagamenti">
                 {data
                     ? data.map((el, i) => {
-                          console.log('DATA ' + i + ': ', el);
+                          //   console.log('DATA ' + i + ': ', el);
                           return (
                               <div
                                   key={`inquilino-pagamenti-${i}`}
