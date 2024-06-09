@@ -16,7 +16,7 @@ export default function InquiliniEdit(props) {
             <div className="inquilini-edit-footer">
                 <Button
                     className="inquilini-edit-btn inquilini-edit-payment-btn"
-                    label="Add Payment"
+                    label="Pagamenti"
                     width="20px"
                     height="20px"
                     type={'payment'}

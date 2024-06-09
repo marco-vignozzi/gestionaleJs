@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import ImmobiliSearch from './components/immobili/ImmobiliSearch';
 import InquiliniRoute from './components/inquilini/InquiliniRoute';
 import Navbar from './components/navbar/Navbar';
 import './styles/App.css';

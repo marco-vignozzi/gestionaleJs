@@ -5,6 +5,7 @@ import InquiliniPagamenti from './InquiliniPagamenti';
 import InquiliniEdit from './InquiliniEdit';
 import useEditInputs from '../../helpers/useEditInputs';
 import Modal from '../../lib/components/modal/Modal';
+import SearchBanner from '../../lib/components/search/Banner';
 import '../../styles/inquilini.css';
 
 const columns = [
@@ -89,7 +90,7 @@ export default function InquiliniRoute(props) {
     // cosa fare quando cambio activeInquilino
     useEffect(() => {
         typeof initEditInput === 'function' && initEditInput(columns, activeInquilino);
-    }, [activeInquilino]);
+    }, [activeInquilino, initEditInput]);
 
     const onDeleteInquilino = useCallback(() => {
         if (window.confirm("Eliminare definitivamente l'inquilino?")) {
@@ -110,7 +111,9 @@ export default function InquiliniRoute(props) {
     return (
         <div className="search-div">
             {/* <SearchBanner/> */}
-            <div className="inquilini-search">SEARCHBANNER</div>
+            <section className="inquilini-search">
+                <SearchBanner />
+            </section>
             <section className="inquilini-edit-section">
                 <InquiliniEdit
                     key={'inquilini-edit'}
