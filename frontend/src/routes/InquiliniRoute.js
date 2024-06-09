@@ -3,10 +3,11 @@ import Table from '../lib/components/table/Table';
 import useInquilini from '../components/inquilini/use-inquilini';
 import InquiliniPagamenti from '../components/inquilini/InquiliniPagamenti';
 import InquiliniEdit from '../components/inquilini/InquiliniEdit';
-import useEditInputs from '../components/helpers/useEditInputs';
+import useEditInputs from '../components/hooks/useEditInputs';
 import Modal from '../lib/components/modal/Modal';
 import SearchBanner from '../lib/components/search/Banner';
 import '../styles/inquilini.css';
+import useModal from '../lib/hooks/useModal';
 
 const columns = [
     { id: 'name', label: 'Nome', minWidth: 150 },
@@ -49,10 +50,17 @@ export default function InquiliniRoute(props) {
     // se null non mostro la edit
     const [activeInquilino, setActiveInquilino] = useState(null);
     const [rows, setRows] = useState([]);
-    // Indica se è aperta la modale di aggiunta pagamento
-    const [isAddingPayment, setIsAddingPayment] = useState(false);
-    // Indica se è aperta la modale di visualizzazione dei pagamenti
-    const [isPaymentsOpen, setIsPaymentsOpen] = useState(false);
+    // MODALE AGGIUNTA PAGAMENTO
+    const { modal: addPaymentModal, setIsOpen: setIsOpenAddPayment } = useModal({
+        className: 'add-payments-modal',
+        title: 'Aggiungi Pagamento'
+    });
+    // MODALE AGGIUNTA PAGAMENTO
+    const { modal: paymentsModal, setIsOpen: setIsOpenPayments } = useModal({
+        className: 'payments-modal',
+        title: 'Storico Pagamenti'
+    });
+
     // State della stringa cercata
     const [queryString, setQueryString] = useState('');
 
@@ -88,7 +96,7 @@ export default function InquiliniRoute(props) {
             )
         );
         console.log('dati:', data);
-        console.log("filtrati con query string '" + queryString + "':", filtered);
+        console.log("filtrati con query string '" + query + "':", filtered);
         return filtered;
     };
 
@@ -143,7 +151,7 @@ export default function InquiliniRoute(props) {
                     activeInquilino={activeInquilino}
                     onAddPayment={(el) => {
                         console.log(el);
-                        setIsAddingPayment(true);
+                        setIsOpenAddPayment(true);
                     }}
                 />
                 <Table key={'inquilini-table'} className="inquilini-table" columns={columns} rows={rows} />
@@ -153,21 +161,11 @@ export default function InquiliniRoute(props) {
                 data={data}
                 openModal={(el) => {
                     console.log(el);
-                    setIsPaymentsOpen(true);
+                    setIsOpenPayments(true);
                 }}
             />
-            <Modal
-                className="adding-payments-modal"
-                title="Aggiungi Pagamento"
-                open={isAddingPayment}
-                onClose={() => setIsAddingPayment(false)}
-            />
-            <Modal
-                className="payments-modal"
-                title="Storico Pagamenti"
-                open={isPaymentsOpen}
-                onClose={() => setIsPaymentsOpen(false)}
-            />
+            {addPaymentModal}
+            {paymentsModal}
         </div>
     );
 }

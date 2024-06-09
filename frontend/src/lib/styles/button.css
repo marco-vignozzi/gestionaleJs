@@ -21,3 +21,12 @@
     margin-right: 4px;
     width: auto;
 }
+/* con etichietta */
+.btn .rounded {
+    border: none;
+    border-radius: 5%;
+}
+.full-rounded {
+    border: none;
+    border-radius: 100%;
+}
