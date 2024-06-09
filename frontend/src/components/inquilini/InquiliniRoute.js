@@ -81,8 +81,8 @@ export default function InquiliniRoute(props) {
         const filtered = data.filter((el) =>
             Object.entries(el).some(
                 ([key, val]) =>
-                    key != '_id' &&
-                    key != 'type' &&
+                    key !== '_id' &&
+                    key !== 'type' &&
                     typeof val === 'string' &&
                     val.toLowerCase().includes(query.toLowerCase())
             )
@@ -92,7 +92,7 @@ export default function InquiliniRoute(props) {
         return filtered;
     };
 
-    // cosa fare quando arrivano i dati
+    // cosa fare quando arrivano i dati o scrivo nella searchbar
     useEffect(() => {
         if (!data || !Array.isArray(data) || query.isPending || updateInquilini.isPending) return;
         let newData;
@@ -101,7 +101,6 @@ export default function InquiliniRoute(props) {
         console.log('NUOVE RIGHE: ', newData);
         setRows(newData);
     }, [data, queryString, query.isPending, updateInquilini.isPending]);
-
     // cosa fare quando cambio activeInquilino
     useEffect(() => {
         typeof initEditInput === 'function' && initEditInput(columns, activeInquilino);
@@ -124,7 +123,7 @@ export default function InquiliniRoute(props) {
     };
 
     return (
-        <div className="search-div">
+        <div className="search-div" {...rest}>
             <section className="inquilini-search-section">
                 <SearchBanner
                     className="inquilini-search-banner"
