@@ -8,16 +8,16 @@ const queryClient = new QueryClient();
 
 const navbarOptions = [
     {
-        label: 'Immobili',
+        label: 'IMMOBILI',
         path: '/'
     },
     {
-        label: 'Inquilini',
+        label: 'INQUILINI',
         onClick: () => console.log('clicked Inquilini'),
         path: '/inquilini'
     },
     {
-        label: 'Contratti',
+        label: 'CONTRATTI',
         path: '/contratti'
     }
 ];
