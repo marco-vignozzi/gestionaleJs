@@ -1,7 +1,7 @@
 {"name":"ARMINIO 🧠","secondName":"COGLIONE","phone":"3331234567","email":"example5@icloud.com","address":"High St, 523","city":"New York","country":"France","type":"inquilino","_id":"0"}
 {"name":"Mamma","secondName":"Alba","phone":"3456789012","email":"example3@gmail.com","address":"Main St, 143","city":"Madrid","country":"Spain","type":"inquilino","_id":"10"}
 {"name":"FERRANDO 💪🏻","secondName":"Neri","country":"Spain","city":"Berlin","address":"High St, 609","phone":"3901234567","email":"example5@icloud.com","_id":"13","hasDebit":false,"type":"inquilino"}
-{"name":"Marco","secondName":"Vignozzi","country":"Italia","city":"Paris","address":"Via Reginaldo Giuliani 34 rosso","phone":"3401920392","email":"example4@outlook.com","type":"inquilino","_id":"14"}
+{"name":"Marc","secondName":"Vignozzi","phone":"3401920392","email":"example4@outlook.com","address":"Via Reginaldo 15","city":"Paris","country":"Italia","type":"inquilino","_id":"14"}
 {"name":"Tarquinio 🔯","secondName":"Verdi","phone":"3331234567","email":"example2@yahoo.com","address":"Broadway, 428","city":"Genova","country":"USA","type":"inquilino","_id":"15"}
 {"name":"FERRANDO 💪🏻","secondName":"Rossi","phone":"3456789012","email":"sad","address":"Main St, 255","city":"Firenze","country":"Germany","type":"inquilino","_id":"16"}
 {"name":"ARMINIO 🧠","secondName":"Neri","country":"France","city":"Rome","address":"Boulevard, 743","phone":"3209876543","email":"example3@gmail.com","_id":"17","hasDebit":false,"type":"inquilino"}
@@ -12,5 +12,3 @@
 {"name":"FERRANDO 💪🏻","secondName":"Reina","country":"Germany","city":"New York SydNEY SINGAPOIRE","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","type":"inquilino","_id":"21"}
 {"name":"ARMINIO 🧠","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"22","type":"inquilino","hasDebit":true}
 {"name":"ARMINIO 🧠","secondName":"Reina","country":"Germany","city":"Berlin","address":"Street of Rock, 666","phone":"3401920392","email":"gianninonfareilcattivo@hotmail.it","_id":"3","type":"inquilino","hasDebit":true}
-{"name":"Marc","secondName":"Vignozzi","phone":"3401920392","email":"example4@outlook.com","address":"Via Reginaldo Giuliani 34 rosso","city":"Paris","country":"Italia","type":"inquilino","_id":"14"}
-{"name":"Marc","secondName":"Vignozzi","phone":"3401920392","email":"example4@outlook.com","address":"Via Reginaldo 15","city":"Paris","country":"Italia","type":"inquilino","_id":"14"}

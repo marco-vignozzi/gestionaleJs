@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import Table from '../../lib/components/table/Table';
-import useInquilini from './use-inquilini';
-import InquiliniPagamenti from './InquiliniPagamenti';
-import InquiliniEdit from './InquiliniEdit';
-import useEditInputs from '../helpers/useEditInputs';
-import Modal from '../../lib/components/modal/Modal';
-import SearchBanner from '../../lib/components/search/Banner';
-import '../../styles/inquilini.css';
+import Table from '../lib/components/table/Table';
+import useInquilini from '../components/inquilini/use-inquilini';
+import InquiliniPagamenti from '../components/inquilini/InquiliniPagamenti';
+import InquiliniEdit from '../components/inquilini/InquiliniEdit';
+import useEditInputs from '../components/helpers/useEditInputs';
+import Modal from '../lib/components/modal/Modal';
+import SearchBanner from '../lib/components/search/Banner';
+import '../styles/inquilini.css';
 
 const columns = [
     { id: 'name', label: 'Nome', minWidth: 150 },
