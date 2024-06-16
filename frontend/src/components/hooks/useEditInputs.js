@@ -19,33 +19,33 @@ function EditInput(props) {
     );
 }
 
+// COMPORTAMENTO AZIONI
+const reducer = (state, action) => {
+    switch (action.type) {
+        case 'INIT':
+            return initialState(action.columns, action.data);
+        case 'UPDATE_INPUT':
+            return {
+                ...state,
+                [action.id]: action.value
+            };
+        default:
+            return state;
+    }
+};
+// STATO INIZIALE
+const initialState = (columns, data) => {
+    if (!columns || !data) return {};
+    const state = {};
+    // inizializzo con i valori di data
+    // lo state è un oggetto con chiave l'id della colonna e valore il valore dell'input che modifica quel campo
+    columns.forEach((col) => {
+        state[col.id] = data[col.id] || '';
+    });
+    return state;
+};
+
 export default function useEditInputs(keysData, data) {
-    const initialState = (columns, data) => {
-        if (!columns || !data) return {};
-        const state = {};
-        // inizializzo con i valori di data
-        // lo state è un oggetto con chiave l'id della colonna e valore il valore dell'input che modifica quel campo
-        columns.forEach((col) => {
-            state[col.id] = data[col.id] || '';
-        });
-        return state;
-    };
-
-    // COMPORTAMENTO AZIONI
-    const reducer = (state, action) => {
-        switch (action.type) {
-            case 'INIT':
-                return initialState(action.columns, action.data);
-            case 'UPDATE_INPUT':
-                return {
-                    ...state,
-                    [action.id]: action.value
-                };
-            default:
-                return state;
-        }
-    };
-
     const [inputStates, dispatch] = useReducer(reducer, { columns: keysData, data: data }, initialState);
 
     if (!inputStates /* !keysData || !data */) return {};

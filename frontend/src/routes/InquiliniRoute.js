@@ -180,6 +180,7 @@ export default function InquiliniRoute(props) {
                     className="inquilini-search-banner"
                     inputPlaceholder={'Filtra gli inquilini...'}
                     inputValue={queryString}
+                    title="Anagrafica Inquilini"
                     onInputChange={(e) => setQueryString(e.target.value)}
                 />
             </section>
