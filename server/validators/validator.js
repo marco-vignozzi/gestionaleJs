@@ -11,11 +11,17 @@ const inquiliniValidKeys = [
     'hasDebit',
     'type'
 ];
+
 const inquiliniRequiredKeys = ['_id', 'name', 'secondName', 'type'];
+
+const pagamentiValidKeys = ['_id', 'type', 'amount', 'date', 'isIncoming'];
+
+const pagamentiRequiredKeys = ['_id', 'type'];
 
 const makeValidators = function () {
     const validateInquilino = (data) => validate(data, inquiliniValidKeys, inquiliniRequiredKeys);
-    return { validateInquilino };
+    const validatePagamento = (data) => validate(data, pagamentiValidKeys, pagamentiRequiredKeys);
+    return { validateInquilino, validatePagamento };
 };
 
 const validate = (data, validKeys, requiredKeys) => {

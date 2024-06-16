@@ -1,13 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import Table from '../lib/components/table/Table';
-import useInquilini from '../components/inquilini/use-inquilini';
+import SearchBanner from '../lib/components/search/Banner';
 import InquiliniPagamenti from '../components/inquilini/InquiliniPagamenti';
 import InquiliniEdit from '../components/inquilini/InquiliniEdit';
+import useInquilini from '../components/inquilini/use-inquilini';
+import usePagamenti from '../components/inquilini/use-pagamenti';
 import useEditInputs from '../components/hooks/useEditInputs';
-import Modal from '../lib/components/modal/Modal';
-import SearchBanner from '../lib/components/search/Banner';
 import '../styles/inquilini.css';
-import useModal from '../lib/hooks/useModal';
+import PaymentsModal from '../components/inquilini/modals/PaymentsModal';
+import AddPaymentModal from '../components/inquilini/modals/AddPaymentModal';
 
 const columns = [
     { id: 'name', label: 'Nome', minWidth: 150 },
@@ -44,75 +45,117 @@ const columns = [
 ];
 
 export default function InquiliniRoute(props) {
-    const { data, updateInquilini, query, deleteInquilino, ...rest } = useInquilini();
-
-    // State che indica quale inquilino è attualmente selezionato
-    // se null non mostro la edit
-    const [activeInquilino, setActiveInquilino] = useState(null);
-    const [rows, setRows] = useState([]);
-    // MODALE AGGIUNTA PAGAMENTO
-    const { modal: addPaymentModal, setIsOpen: setIsOpenAddPayment } = useModal({
-        className: 'add-payments-modal',
-        title: 'Aggiungi Pagamento'
-    });
-    // MODALE AGGIUNTA PAGAMENTO
-    const { modal: paymentsModal, setIsOpen: setIsOpenPayments } = useModal({
-        className: 'payments-modal',
-        title: 'Storico Pagamenti'
-    });
+    // DATI INQUILINI dal server
+    const { data: inquiliniData, updateInquilini, query: inquiliniQuery, deleteInquilino } = useInquilini();
+    // DATI PAGAMENTI dal server
+    const { data: pagamentiData, updatePagamenti, query: pagamentiQuery, deletePagamento } = usePagamenti();
 
     // State della stringa cercata
     const [queryString, setQueryString] = useState('');
+    // Righe della table inquilini
+    const [inquiliniRows, setInquiliniRows] = useState([]);
+    // Righe della table pagamenti
+    const [pagamentiRows, setPagamentiRows] = useState([]);
+    // State dell'inquilino attualmente selezionato; se null non mostro la edit
+    const [activeInquilino, setActiveInquilino] = useState(null);
+    // State dell'inquilino passato alla modale; se null non mostro la modale
+    const [inquilinoModalData, setInquilinoModalData] = useState(null);
 
+    // INPUT DELL'EDIT
     const {
         inputElements: editInputElements,
         inputStates: editInputStates,
         init: initEditInput
     } = useEditInputs(columns, activeInquilino);
 
-    // funzione che processa i dati prima di mandarli alla table
-    const processData = (data) =>
+    // MODALI
+    const [paymentsModal, showPaymentsModal] = useState(false);
+    const [addPaymentModal, showAddPaymentModal] = useState(false);
+
+    // MODALE AGGIUNTA PAGAMENTO
+    // const { modal: addPaymentModal, setIsOpen: showAddPaymentModal } = useModal({
+    //     className: 'add-payments-modal',
+    //     title: 'Aggiungi Pagamento'
+    // });
+
+    ///////////////////////////////////////////////
+    // HELPERS
+    // funzioni che processano i dati prima di mandarli alle table
+    const makeInquiliniRows = (data) =>
         data.map((el, i) => {
-            const onClick = (e) => {
+            // sul click cambio inquilino attivo
+            el.onClick = (e) => {
                 console.log('Clicked: ', el);
+                // codice per cambiare inquilino mostrato nell'edit
                 setActiveInquilino(el);
+                typeof initEditInput === 'function' && initEditInput(columns, el);
             };
+            el.className = 'inquilini-row';
             // aggiungo onClick e className da associare alle righe della table
-            return {
-                ...el,
-                onClick: onClick,
-                className: 'inquilini-row'
-            };
+            return el;
         });
+    const makePagamentiRows = (data) =>
+        data.map((el, i) => {
+            el.amount = (+el.amount).toFixed(2) + ' ' + '€';
+            el.date = '10/10/VAFFANCULO';
+            el.className = 'pagamenti-row' + (el.isIncoming ? ' incoming' : '');
+            // aggiungo onClick e className da associare alle righe della table
+            return el;
+        });
+
     // funzione che filtra i dati in base alla stringa cercata
-    const filterData = (query) => {
-        const filtered = data.filter((el) =>
-            Object.entries(el).some(
-                ([key, val]) =>
-                    key !== '_id' &&
-                    key !== 'type' &&
-                    typeof val === 'string' &&
-                    val.toLowerCase().includes(query.toLowerCase())
-            )
-        );
-        console.log('dati:', data);
+    const filterInquilini = (query) => {
+        let filtered = inquiliniData;
+        if (query)
+            filtered = inquiliniData.filter((el) =>
+                Object.entries(el).some(
+                    ([key, val]) =>
+                        key !== '_id' &&
+                        key !== 'type' &&
+                        typeof val === 'string' &&
+                        val.toLowerCase().includes(query.toLowerCase())
+                )
+            );
+        console.log('dati:', inquiliniData);
         console.log("filtrati con query string '" + query + "':", filtered);
-        return filtered;
+        return filtered ? filtered : [];
     };
 
-    // cosa fare quando arrivano i dati o scrivo nella searchbar
+    // aggiornamento inquilini fetch e update
     useEffect(() => {
-        if (!data || !Array.isArray(data) || query.isPending || updateInquilini.isPending) return;
-        let newData;
-        if (queryString) newData = filterData(queryString); // filtro in base alla query string
-        newData = processData(newData ? newData : data); // se ho filtrato processo i dati nuovi
-        console.log('NUOVE RIGHE: ', newData);
-        setRows(newData);
-    }, [data, queryString, query.isPending, updateInquilini.isPending]);
-    // cosa fare quando cambio activeInquilino
+        if (!inquiliniData || !Array.isArray(inquiliniData) || inquiliniQuery.isPending || updateInquilini.isPending)
+            return;
+        const newData = makeInquiliniRows(inquiliniData); // se ho filtrato processo i dati nuovi
+        console.log('NUOVI INQUILINI: ', newData);
+        setInquiliniRows(newData);
+    }, [inquiliniData, inquiliniQuery.isPending, updateInquilini.isPending]);
+
+    // aggiornamento per la ricerca
     useEffect(() => {
-        typeof initEditInput === 'function' && initEditInput(columns, activeInquilino);
-    }, [activeInquilino]);
+        const newData = filterInquilini(queryString); // filtro in base alla query string
+        setInquiliniRows(newData);
+    }, [queryString]);
+
+    // aggiornamento pagamenti fetch e update
+    useEffect(() => {
+        if (!pagamentiData || !Array.isArray(pagamentiData) || pagamentiQuery.isPending || updatePagamenti.isPending)
+            return;
+        console.log('NUOVI PAGAMENTI: ', pagamentiData);
+        const newData = makePagamentiRows(pagamentiData);
+        setPagamentiRows(newData);
+    }, [pagamentiData, pagamentiQuery.isPending, updatePagamenti.isPending]);
+
+    // aggiornamento per il cambio inquilino
+    useEffect(() => {
+        if (!inquilinoModalData) return;
+        const newData = pagamentiData.filter((el) => el.id_inquilino === inquilinoModalData._id); // filtro in base all'inquilino cliccato
+        setPagamentiRows(newData);
+    }, [inquilinoModalData]);
+
+    // // cosa fare quando cambio activeInquilino
+    // useEffect(() => {
+    //     typeof initEditInput === 'function' && initEditInput(columns, activeInquilino);
+    // }, [activeInquilino]);
 
     const onDeleteInquilino = useCallback(() => {
         if (window.confirm("Eliminare definitivamente l'inquilino?")) {
@@ -131,7 +174,7 @@ export default function InquiliniRoute(props) {
     };
 
     return (
-        <div className="search-div" {...rest}>
+        <div className="search-div" {...props}>
             <section className="inquilini-search-section">
                 <SearchBanner
                     className="inquilini-search-banner"
@@ -151,21 +194,41 @@ export default function InquiliniRoute(props) {
                     activeInquilino={activeInquilino}
                     onAddPayment={(el) => {
                         console.log(el);
-                        setIsOpenAddPayment(true);
+                        setInquilinoModalData(activeInquilino);
+                        showAddPaymentModal(true);
                     }}
                 />
-                <Table key={'inquilini-table'} className="inquilini-table" columns={columns} rows={rows} />
+                <Table key={'inquilini-table'} className="inquilini-table" columns={columns} rows={inquiliniRows} />
             </section>
-            <InquiliniPagamenti
-                key={'inquilini-pagamenti'}
-                data={data}
-                openModal={(el) => {
-                    console.log(el);
-                    setIsOpenPayments(true);
+            <section>
+                <InquiliniPagamenti
+                    key={'inquilini-pagamenti'}
+                    data={inquiliniData}
+                    openModal={(el) => {
+                        console.log(el);
+                        setInquilinoModalData(el);
+                        showPaymentsModal(true);
+                    }}
+                />
+            </section>
+            <AddPaymentModal
+                rows={pagamentiRows}
+                open={addPaymentModal}
+                inquilino={inquilinoModalData}
+                onClose={() => {
+                    setInquilinoModalData(null);
+                    showAddPaymentModal(false);
                 }}
             />
-            {addPaymentModal}
-            {paymentsModal}
+            <PaymentsModal
+                rows={pagamentiRows}
+                open={paymentsModal}
+                inquilino={inquilinoModalData}
+                onClose={() => {
+                    setInquilinoModalData(null);
+                    showPaymentsModal(false);
+                }}
+            />
         </div>
     );
 }

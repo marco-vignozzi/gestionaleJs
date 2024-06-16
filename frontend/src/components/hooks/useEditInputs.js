@@ -19,11 +19,11 @@ function EditInput(props) {
     );
 }
 
-export default function useEditInputs(keysData, inquilinoData) {
+export default function useEditInputs(keysData, data) {
     const initialState = (columns, data) => {
         if (!columns || !data) return {};
         const state = {};
-        // inizializzo con i valori di inquilinoData
+        // inizializzo con i valori di data
         // lo state è un oggetto con chiave l'id della colonna e valore il valore dell'input che modifica quel campo
         columns.forEach((col) => {
             state[col.id] = data[col.id] || '';
@@ -46,9 +46,9 @@ export default function useEditInputs(keysData, inquilinoData) {
         }
     };
 
-    const [inputStates, dispatch] = useReducer(reducer, {}, () => initialState(keysData, inquilinoData));
+    const [inputStates, dispatch] = useReducer(reducer, { columns: keysData, data: data }, initialState);
 
-    if (!inputStates /* !keysData || !inquilinoData */) return {};
+    if (!inputStates /* !keysData || !data */) return {};
     const inputElements = {};
     keysData.forEach((el) => {
         // Creao un oggetto dove per ogni chiave di inquilino c'è l'elemento input
@@ -66,5 +66,6 @@ export default function useEditInputs(keysData, inquilinoData) {
 
     const init = (columns, data) => dispatch({ type: 'INIT', columns, data });
 
+    // inputStates sono le coppie chiave valore dei dati che passi
     return { inputStates, inputElements, init };
 }
